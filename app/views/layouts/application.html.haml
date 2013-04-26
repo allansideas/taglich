@@ -1,0 +1,13 @@
+!!! 5
+%html{"ng-app": ""}
+  %head
+    %meta{ charset: 'utf-8' }
+    %title= content_for?(:title) ? yield(:title) : 'chalkle°'
+    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+    = csrf_meta_tag
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+
+  %body
+    = yield 
+
