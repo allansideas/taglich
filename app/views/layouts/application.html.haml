@@ -1,5 +1,5 @@
 !!! 5
-%html{"ng-app": ""}
+%html{"ng-app" => "Taglich"}
   %head
     %meta{ charset: 'utf-8' }
     %title= content_for?(:title) ? yield(:title) : 'chalkle°'
@@ -9,5 +9,6 @@
     = javascript_include_tag "application"
 
   %body
-    = yield 
+    .container
+      = yield 
 
