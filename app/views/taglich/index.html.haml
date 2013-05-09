@@ -1,15 +1,4 @@
 .row
-  .span6.offset3
-    %h2 Metrics
-    %h3=@day.date.strftime("%a #{@day.date.day.ordinalize}")
-    .week{"ng-controller" => "WeekCtrl"}
-      .day{"ng-repeat" => "day in week_days", "ng-controller" => "DayCtrl", "ng-class"=>"{current: currentDay()}"}
-        {{day.pretty_date}}
-        .metrics{"ng-controller" => "MetricScoreCtrl"}
-          %ul.unstyled
-            %li{"ng-repeat" => "ms in day.metric_scores", "ng-controller" => "MetricScoreItemCtrl"}
-              %form.form-inline
-                %label{for: "ms-score"} {{ms.metric.name}}
-                {{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}
-                %input{id: "ms-score", type: "number", "ng-model" => "ms.score", "ng-blur" => "updateMetricScore(ms)"}
-          
+  .large-6.large-offset-3.columns.wrapper
+    <div ui-view="" ng-animate="{enter:'fade-enter'}"></div>
+    //=link_to "sign out", destroy_user_session_path, :method => "delete"

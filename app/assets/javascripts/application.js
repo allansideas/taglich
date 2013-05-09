@@ -12,8 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require angular
+//= require jquery.ui.all
+//= require touch-punch
+//= require flotr2
+//= require foundation
+//= require unstable/angular
 //= require angular-resource
-//= require ./angular/app.js
-//= require_tree ./angular
-//= require_tree .
+//= require ./common/libs/angular-ui-states
+//= require_tree ./common
+//= require_tree ./app

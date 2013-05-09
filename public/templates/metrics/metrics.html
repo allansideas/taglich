@@ -1,0 +1,133 @@
+<div ng-show="$parent.isEditMode">
+  <div class="full-width-button green-dark med button-text-icon" ng-click="isAdding = true" ng-show="!isAdding">
+    <i class="foundicon-plus"></i> New metric
+  </div>
+  <div class="padded-row row collapse gray-darkish" ng-show="isAdding != false"> 
+    <form class="edit-add-form bottom-margin">  
+      <div class="bottom-margin">
+        <input type="text" ng-model="metric.name" placeholder="Metric name" />
+      </div>
+      <div class="row collapse">
+        <div class="small-4 columns">
+          <div class="full-width-button med blue-dark" ng-class="{selected: metric.score_type == 'small_number'}" type="text" ng-model="metric.score_type" ng-click="metric.score_type = 'small_number'">
+            Small no.
+          </div>
+        </div>
+        <div class="small-4 columns">
+          <div class="full-width-button med blue-dark" ng-class="{selected: metric.score_type == 'big_number'}" type="text" ng-model="metric.score_type" ng-click="metric.score_type = 'big_number'">
+            Big no.
+          </div>
+        </div>
+        <div class="small-4 columns">
+          <div class="full-width-button med blue-dark" ng-class="{selected: metric.score_type == 'boolean'}" type="text" ng-model="metric.score_type" ng-click="metric.score_type = 'boolean'">
+            Yes/no
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="small-4 columns">
+      <div class="full-width-button red-dark med" ng-click="isAdding = false">
+        Cancel
+      </div>
+    </div>
+    <div class="small-8 columns">
+      <div class="full-width-button green-dark med" ng-click="addMetric(metric)">
+        Save
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="metrics" dnd-list="day.metric_scores">
+  <div class="row collapse text-center" ng-show="!$parent.isEditMode">
+    <div style="width: 12.5%; float: left;">
+      <small>{{day.metric_scores[0].last_8[0].date}}</small>
+    </div>
+    <div style="width: 12.5%; float: right;">
+      <small>Yesterday</small>
+    </div>
+  </div>
+  <div id="metrics_{{ms.metric.id}}" class="metric" ng-repeat="ms in day.metric_scores" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
+    <!--<div class="prev_score text-center" ng-repeat="ws in ms.last_8">-->
+      <!--<small>{{ws.score}}</small>-->
+    <!--</div>-->
+    <div class="padded-row row collapse gray-darkish marginless-inputs" ng-show="ms.metric.score_type == 'big_number'">
+      <div class="small-1 columns move-button" ng-show="$parent.isEditMode">
+        <i class="foundicon-up-arrow"></i>
+        <br />
+        <i class="foundicon-down-arrow"></i>
+      </div>
+      <div class="small-9 columns">
+        <label for="ms-score" class="inline ">{{ms.metric.name}}</label>
+      </div>
+      <div class="small-1 columns text-center" ng-show="!$parent.isEditMode">
+        <small>
+          Beat
+          <br />
+        </small>
+          {{ms.last_8[7].score}}
+      </div>
+      <!--{{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}-->
+      <div class="remove-button" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
+        <i class="foundicon-minus full-width-button med red-dark"></i>
+      </div>
+      <div class="small-2 columns">
+        <input id="ms-score" class="right" type="number" ng-model="ms.score" ng-show="!$parent.isEditMode"/>
+      </div>
+    </div>
+
+    <div class="small-number-score padded-row row collapse gray-darkish" ng-show="ms.metric.score_type == 'small_number'">
+      <div class="small-1 columns move-button" ng-show="$parent.isEditMode">
+        <i class="foundicon-up-arrow"></i>
+        <br />
+        <i class="foundicon-down-arrow"></i>
+      </div>
+      <div class="small-9 columns">
+        <label for="ms-score" class="inline">{{ms.metric.name}}</label>
+      </div>
+      <div class="small-1 columns text-center" ng-show="!$parent.isEditMode">
+        <small>
+          To Beat
+          <br />
+        </small>
+          {{ms.last_8[7].score}}
+      </div>
+      <div class="remove-button" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
+        <i class="foundicon-minus full-width-button med red-dark"></i>
+      </div>
+      <!--{{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}-->
+      <div class="small-2 columns">
+        <input id="ms-score" class="right" type="number" ng-model="ms.score" ng-show="!$parent.isEditMode"/>
+      </div>
+    </div>
+
+    <div class="boolean-score padded-row row collapse gray-darkish" ng-show="ms.metric.score_type == 'boolean'">
+      <div class="small-1 columns move-button" ng-show="$parent.isEditMode">
+        <i class="foundicon-up-arrow"></i>
+        <br />
+        <i class="foundicon-down-arrow"></i>
+      </div>
+      <div class="small-9 columns">
+        <label for="ms-score" class="inline">{{ms.metric.name}}</label>
+      </div>
+      <div class="small-1 columns text-center" ng-show="!$parent.isEditMode">
+        <small>
+          To Beat
+          <br />
+        </small>
+          <i class="foundicon-checkmark" ng-show="ms.last_8[7].score === 1" ng-click="updateMetricScore(ms)"></i>
+          <i class="foundicon-remove" ng-show="ms.last_8[7].score === 0" ng-click="updateMetricScore(ms)"></i>
+      </div>
+      <!--{{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}-->
+      <div class="yes-no-button" ng-show="!$parent.isEditMode">
+        <div class="full-width-button med {{ms.score===0 && 'green-dark' || 'red-dark'}}">
+          <i class="foundicon-checkmark" ng-show="ms.score === 0" ng-click="updateMetricScore(ms)"></i>
+          <i class="foundicon-remove" ng-show="ms.score === 1" ng-click="updateMetricScore(ms)"></i>
+        </div>
+      </div>
+      <div class="remove-button" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
+        <i class="foundicon-minus full-width-button med red-dark right"></i>
+      </div>
+    </div>
+  </div>
+</div>

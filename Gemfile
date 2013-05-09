@@ -16,12 +16,14 @@ gem "active_model_serializers", "~> 0.7.0"
 gem 'squeel',        '~> 1.0.18'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
+  gem 'zurb-foundation'
+  #gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'execjs',              '~> 1.4.0'
 
@@ -49,7 +51,7 @@ group :development do
   gem 'quiet_assets',       '~> 1.0.1'
   gem 'better_errors',      '~> 0.3.2'
   gem 'binding_of_caller',  '~> 0.7.1'
-  gem 'angularjs-rails'
+  gem 'angularjs-rails', :git => "git://github.com/mchung/angularjs-rails.git", :branch => "unstable"
 end
 
 group :development, :test do

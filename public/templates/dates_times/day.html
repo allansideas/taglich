@@ -1,0 +1,37 @@
+<div class="day">
+  <nav class="row">
+    <div class="row collapse">
+      <!--{{$state.current.name}}
+      {{$stateParams}}-->
+      <div class="small-1 columns">
+        <a href="#" class="full-width-button med blue-dark button-text-icon">
+          <i class="foundicon-left-arrow"></i>
+        </a>
+      </div>
+      <div class="small-3 columns text-center date">
+        {{day.pretty_date}}
+      </div>
+      <div class="small-7 columns">
+        <div class="full-width-button med gray-darkish button-text-icon" ng-show="isEditMode ==
+          true"
+          ng-click="isEditMode=false">
+          Score mode >
+        </div>
+        <div class="full-width-button med gray-darkish button-text-icon" ng-show="isEditMode ==
+          false" 
+          ng-click="isEditMode=true">
+          Edit mode >
+        </div>
+      </div>
+      <div class="small-1 columns">
+        <a href="#" class="full-width-button med blue-dark
+          button-text-icon">
+          <i class="foundicon-right-arrow"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+      <!--<a href="" ng-click="show_graphs()">Graphs</a>-->
+  <section class="metrics row" ui-view="metrics" ></section>
+  <section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>
+</div>
