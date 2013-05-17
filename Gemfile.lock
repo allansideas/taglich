@@ -1,9 +1,8 @@
 GIT
-  remote: git://github.com/mchung/angularjs-rails.git
-  revision: 8e680b45aef1ffe57f00401af7dab5e8c62a202c
-  branch: unstable
+  remote: git://github.com/hiravgandhi/angularjs-rails.git
+  revision: 6989f39656d00c94ad6e5bd0000f21a93ad89855
   specs:
-    angularjs-rails (1.0.5)
+    angularjs-rails (1.0.6)
 
 GEM
   remote: https://rubygems.org/
