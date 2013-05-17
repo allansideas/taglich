@@ -9,7 +9,7 @@ set :rake, "bundle exec rake"
 set :use_sudo,    false
 set :scm, :git
 
-set :rvm_ruby_string, :local
+set :rvm_ruby_string, "ruby-2.0.0-p195"
 
 #set :whenever_command, "bundle exec whenever"
 
@@ -60,6 +60,9 @@ namespace :assets do
     run "cd #{release_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:clean"
   end
 end
+
+before 'deploy', 'rvm:install_rvm'  # update RVM
+before 'deploy', 'rvm:install_ruby' # install Ruby and create gemset (both if missing)
 
 after "deploy:update_code", "deploy:symlink_configs"
 after "deploy:update", "deploy:cleanup"
