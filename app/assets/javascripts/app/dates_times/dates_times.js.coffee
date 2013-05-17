@@ -6,9 +6,17 @@ angular.module('dates_times', ['resources.dates_times'])
   normalizeDate = (date)->
     date.replace(/\b(\d{1})\b/g, '0$1')
 
+  getJSDateFromURLString = (date_string)->
+    #Y/M/D -> [0] = Y, [1] = M, [2] = D
+    dateArry = date_string.split("/").splice(1,3)
+    jsDate = new Date(dateArry[0], dateArry[1] - 1, dateArry[2])
+    jsDate
+
+  formatDateURL = (date)->
+    "/" + date.getFullYear() + "/" + normalizeDate((1 + date.getMonth()).toString()) + "/" + normalizeDate(date.getDate().toString()) 
+
   #match server time
   date = new Date()
-  console.log date.getDay()
   $urlRouterProvider.otherwise("/" + date.getFullYear() + "/" + normalizeDate((1 + date.getMonth()).toString()) + "/" + normalizeDate(date.getDate().toString()) )
 
   $stateProvider.state('day', 
@@ -19,8 +27,20 @@ angular.module('dates_times', ['resources.dates_times'])
         controller: ["$scope", "$stateParams", "$state", "$location", "Day", "DayByDate", ($scope, $stateParams, $state, $location, Day, DayByDate) ->
           $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day})
           $scope.currentDayURL = "/"+$stateParams.year+"/"+$stateParams.month+"/"+$stateParams.day
-          $scope.location = $location
-          $scope.isEditMode = true
+          $scope.prevDayURL = ()->
+            date_string = $scope.currentDayURL
+            date = getJSDateFromURLString(date_string)
+            prev_day = new Date(date.setDate(date.getDate() - 1))
+            prev_day = formatDateURL(prev_day)
+            prev_day
+          $scope.nextDayURL = ()->
+            date_string = $scope.currentDayURL
+            date = getJSDateFromURLString(date_string)
+            next_day = new Date(date.setDate(date.getDate() + 1))
+            next_day = formatDateURL(next_day)
+            next_day
+
+          $scope.isEditMode = false
           $scope.show_graphs = ()->
             $state.transitionTo('day.graphs', $stateParams)
         ]
@@ -139,7 +159,7 @@ angular.module('dates_times', ['resources.dates_times'])
           #$scope.flotr(document.getElementById('chart'), $scope.$parent.day.metric_scores[0])
         ]   
       'flash_cards':
-        template: 'HIHI ma a a a s df asdf asdf sadfasdfasd'
+        template: ''
   )
 
 ])

@@ -4,22 +4,28 @@
       <!--{{$state.current.name}}
       {{$stateParams}}-->
       <div class="small-1 columns">
-        <a href="#" class="full-width-button med blue-dark button-text-icon">
+        <a href="#{{prevDayURL()}}" class="full-width-button med blue-dark button-text-icon">
           <i class="foundicon-left-arrow"></i>
         </a>
       </div>
       <div class="small-3 columns text-center date">
         {{day.pretty_date}}
       </div>
-      <div class="small-2 columns">
-        <a href="#{{currentDayURL}}" 
-          ng-class="{selected: $state.current.name == 'day' && isEditMode == false}" 
-          class="full-width-button med gray-darkish button-text-icon" 
-          ng-click="isEditMode=false">
-          <i class="foundicon-edit"></i>
+      <div class="small-1 columns">
+        <a href="#{{nextDayURL()}}" class="full-width-button med blue-dark
+          button-text-icon">
+          <i class="foundicon-right-arrow"></i>
         </a>
       </div>
-      <div class="small-2 columns">
+      <div class="small-2 columns right">
+        <a href="#{{currentDayURL}}/graphs" 
+          ng-class="{selected: $state.includes('day.graphs')}" 
+          class="full-width-button med gray-darkish button-text-icon" 
+          ng-click="isEditMode=true">
+          <i class="foundicon-graph"></i>
+        </a>
+      </div>
+      <div class="small-2 columns right">
         <a href="#{{currentDayURL}}" 
           ng-class="{selected: $state.current.name == 'day' && isEditMode == true}" 
           class="full-width-button med gray-darkish button-text-icon" 
@@ -27,23 +33,33 @@
           <i class="foundicon-settings"></i>
         </a>
       </div>
-      <div class="small-2 columns">
-        <a href="#{{location.path()}}/graphs" 
-          ng-class="{selected: $state.includes('day.graphs')}" 
+      <div class="small-2 columns right">
+        <a href="#{{currentDayURL}}" 
+          ng-class="{selected: $state.current.name == 'day' && isEditMode == false}" 
           class="full-width-button med gray-darkish button-text-icon" 
-          ng-click="isEditMode=true">
-          <i class="foundicon-graph"></i>
-        </a>
-      </div>
-      <div class="small-1 columns">
-        <a href="#" class="full-width-button med blue-dark
-          button-text-icon">
-          <i class="foundicon-right-arrow"></i>
+          ng-click="isEditMode=false">
+          <i class="foundicon-edit"></i>
         </a>
       </div>
     </div>
   </nav>
       <!--<a href="" ng-click="show_graphs()">Graphs</a>-->
+  <section class="row text-center" ng-show="day.metric_scores.length === 0">
+    <p class="small-12 columns">
+      You haven't got any metrics yet to add and organise your metrics
+      at any time you can use this button.
+    </p>
+    <div class="row">
+      <div class="small-2 small-offset-5 columns">
+        <a href="#{{currentDayURL}}" 
+          ng-class="{selected: $state.current.name == 'day' && isEditMode == true}" 
+          class="full-width-button med gray-darkish button-text-icon" 
+          ng-click="isEditMode=true">
+          <i class="foundicon-settings"></i>
+        </a>
+      </div>
+    </div>
+  </section>
   <section class="metrics row" ui-view="metrics" ></section>
   <section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>
 </div>
