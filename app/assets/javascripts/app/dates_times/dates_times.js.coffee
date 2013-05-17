@@ -16,8 +16,10 @@ angular.module('dates_times', ['resources.dates_times'])
     views:
       '':
         templateUrl: 'templates/dates_times/day.html'
-        controller: ["$scope", "$stateParams", "$state", "Day", "DayByDate", ($scope, $stateParams, $state, Day, DayByDate) ->
+        controller: ["$scope", "$stateParams", "$state", "$location", "Day", "DayByDate", ($scope, $stateParams, $state, $location, Day, DayByDate) ->
           $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day})
+          $scope.currentDayURL = "/"+$stateParams.year+"/"+$stateParams.month+"/"+$stateParams.day
+          $scope.location = $location
           $scope.isEditMode = true
           $scope.show_graphs = ()->
             $state.transitionTo('day.graphs', $stateParams)

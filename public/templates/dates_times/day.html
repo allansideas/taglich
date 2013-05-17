@@ -11,17 +11,29 @@
       <div class="small-3 columns text-center date">
         {{day.pretty_date}}
       </div>
-      <div class="small-7 columns">
-        <div class="full-width-button med gray-darkish button-text-icon" ng-show="isEditMode ==
-          true"
+      <div class="small-2 columns">
+        <a href="#{{currentDayURL}}" 
+          ng-class="{selected: $state.current.name == 'day' && isEditMode == false}" 
+          class="full-width-button med gray-darkish button-text-icon" 
           ng-click="isEditMode=false">
-          Score mode >
-        </div>
-        <div class="full-width-button med gray-darkish button-text-icon" ng-show="isEditMode ==
-          false" 
+          <i class="foundicon-edit"></i>
+        </a>
+      </div>
+      <div class="small-2 columns">
+        <a href="#{{currentDayURL}}" 
+          ng-class="{selected: $state.current.name == 'day' && isEditMode == true}" 
+          class="full-width-button med gray-darkish button-text-icon" 
           ng-click="isEditMode=true">
-          Edit mode >
-        </div>
+          <i class="foundicon-settings"></i>
+        </a>
+      </div>
+      <div class="small-2 columns">
+        <a href="#{{location.path()}}/graphs" 
+          ng-class="{selected: $state.includes('day.graphs')}" 
+          class="full-width-button med gray-darkish button-text-icon" 
+          ng-click="isEditMode=true">
+          <i class="foundicon-graph"></i>
+        </a>
       </div>
       <div class="small-1 columns">
         <a href="#" class="full-width-button med blue-dark

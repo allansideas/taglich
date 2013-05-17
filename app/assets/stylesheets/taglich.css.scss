@@ -62,6 +62,10 @@ label {
   font-size: emCalc(16px);
 }
 
+.gray-faded {
+  color: darken($secondary-color, 30%);
+}
+
 .wrapper {
   section.row {
     margin-bottom: emCalc(16px);
@@ -131,8 +135,8 @@ nav .date {
       font-size: emCalc(18px);
       margin-bottom: emCalc(4px);
       padding-bottom: emCalc(4px);
+      border: none;
       border-bottom: solid 4px lighten($gray-darkish, 3%);
-      border-top: none;
     }
   }
 }
@@ -140,6 +144,20 @@ nav .date {
   font-size: emCalc(18px);
   margin-bottom: emCalc(4px);
   padding-bottom: emCalc(4px);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  &.last {
+    margin-bottom: 0;
+  }
+}
+
+.full-width-button.in-row {
+  font-size: emCalc(18px);
+  margin-bottom: emCalc(4px);
+  padding-bottom: emCalc(4px);
+  width: 60px;
+  float: right;
   border-right: none;
   border-left: none;
   border-top: none;
@@ -156,6 +174,7 @@ nav .date {
 .move-button {
   margin-top: 5px;
   padding-left: emCalc(8px);
+  cursor: pointer;
 }
 
 .yes-no-button, .remove-button {
@@ -173,6 +192,7 @@ nav .date {
   & label {
     padding-left: emCalc(8px);
     margin: 0;
+    cursor: default;
   }
   &.gray-darkish {
     background: $gray-darkish;

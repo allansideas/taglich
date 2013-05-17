@@ -39,14 +39,14 @@
 </div>
 
 <div id="metrics" dnd-list="day.metric_scores">
-  <div class="row collapse text-center" ng-show="!$parent.isEditMode">
-    <div style="width: 12.5%; float: left;">
-      <small>{{day.metric_scores[0].last_8[0].date}}</small>
-    </div>
-    <div style="width: 12.5%; float: right;">
-      <small>Yesterday</small>
-    </div>
-  </div>
+  <!--<div class="row collapse text-center" ng-show="!$parent.isEditMode">-->
+    <!--<div style="width: 12.5%; float: left;">-->
+      <!--<small>{{day.metric_scores[0].last_8[7].date}}</small>-->
+    <!--</div>-->
+    <!--<div style="width: 12.5%; float: right;">-->
+      <!--<small>Yesterday</small>-->
+    <!--</div>-->
+  <!--</div>-->
   <div id="metrics_{{ms.metric.id}}" class="metric" ng-repeat="ms in day.metric_scores" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
     <!--<div class="prev_score text-center" ng-repeat="ws in ms.last_8">-->
       <!--<small>{{ws.score}}</small>-->
@@ -60,7 +60,7 @@
       <div class="small-9 columns">
         <label for="ms-score" class="inline ">{{ms.metric.name}}</label>
       </div>
-      <div class="small-1 columns text-center" ng-show="!$parent.isEditMode">
+      <div class="small-1 columns text-center gray-faded" ng-show="!$parent.isEditMode">
         <small>
           Beat
           <br />
@@ -68,8 +68,8 @@
           {{ms.last_8[7].score}}
       </div>
       <!--{{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}-->
-      <div class="remove-button" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
-        <i class="foundicon-minus full-width-button med red-dark"></i>
+      <div class="full-width-button in-row button-text-icon red-dark" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
+        <i class="foundicon-minus"></i>
       </div>
       <div class="small-2 columns">
         <input id="ms-score" class="right" type="number" ng-model="ms.score" ng-show="!$parent.isEditMode"/>
@@ -85,15 +85,17 @@
       <div class="small-9 columns">
         <label for="ms-score" class="inline">{{ms.metric.name}}</label>
       </div>
-      <div class="small-1 columns text-center" ng-show="!$parent.isEditMode">
+      <div class="small-1 columns text-center gray-faded" ng-show="!$parent.isEditMode">
         <small>
-          To Beat
+          Beat
           <br />
         </small>
           {{ms.last_8[7].score}}
       </div>
-      <div class="remove-button" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
-        <i class="foundicon-minus full-width-button med red-dark"></i>
+      <div class="full-width-button button-text-icon in-row red-dark"
+        ng-show="$parent.isEditMode"
+        ng-click="changeMetricState('inactive', ms)">
+        <i class="foundicon-minus"></i>
       </div>
       <!--{{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}-->
       <div class="small-2 columns">
@@ -110,23 +112,23 @@
       <div class="small-9 columns">
         <label for="ms-score" class="inline">{{ms.metric.name}}</label>
       </div>
-      <div class="small-1 columns text-center" ng-show="!$parent.isEditMode">
+      <div class="small-1 columns text-center gray-faded" ng-show="!$parent.isEditMode">
         <small>
-          To Beat
+          Beat
           <br />
         </small>
           <i class="foundicon-checkmark" ng-show="ms.last_8[7].score === 1" ng-click="updateMetricScore(ms)"></i>
           <i class="foundicon-remove" ng-show="ms.last_8[7].score === 0" ng-click="updateMetricScore(ms)"></i>
       </div>
       <!--{{prevScore(ms, week_days[$parent.$parent.$parent.$parent.$index - 1].metric_scores)}}-->
-      <div class="yes-no-button" ng-show="!$parent.isEditMode">
-        <div class="full-width-button med {{ms.score===0 && 'green-dark' || 'red-dark'}}">
+      <div ng-show="!$parent.isEditMode">
+        <div class="full-width-button button-text-icon in-row {{ms.score===0 && 'green-dark' || 'red-dark'}}">
           <i class="foundicon-checkmark" ng-show="ms.score === 0" ng-click="updateMetricScore(ms)"></i>
           <i class="foundicon-remove" ng-show="ms.score === 1" ng-click="updateMetricScore(ms)"></i>
         </div>
       </div>
-      <div class="remove-button" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
-        <i class="foundicon-minus full-width-button med red-dark right"></i>
+      <div class="full-width-button button-text-icon in-row red-dark right" ng-show="$parent.isEditMode" ng-click="changeMetricState('inactive', ms)">
+        <i class="foundicon-minus"></i>
       </div>
     </div>
   </div>
