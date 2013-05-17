@@ -62,6 +62,18 @@ label {
   font-size: emCalc(16px);
 }
 
+label.inline.label-2-rows {
+  margin-top: emCalc(-8px);
+}
+.inline-checkbox {
+  input[type=checkbox] {
+    margin-right: emCalc(6px);
+  }
+  label {
+    font-weight: normal;
+  }
+} 
+
 .gray-faded {
   color: darken($secondary-color, 30%);
 }

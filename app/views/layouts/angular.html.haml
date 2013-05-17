@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     = csrf_meta_tag
     = stylesheet_link_tag    "application", media: "all"
-    =# javascript_include_tag "application"
+    = javascript_include_tag "application"
 
-  %body
+  %body{"ng-app" => "Taglich"}
     .container
       .row
         .large-6.large-offset-3.columns.wrapper
