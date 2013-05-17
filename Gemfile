@@ -17,6 +17,7 @@ gem 'squeel',        '~> 1.0.18'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'angularjs-rails', :git => "git://github.com/hiravgandhi/angularjs-rails.git"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -52,7 +53,6 @@ group :development do
   gem 'quiet_assets',       '~> 1.0.1'
   gem 'better_errors',      '~> 0.3.2'
   gem 'binding_of_caller',  '~> 0.7.1'
-  gem 'angularjs-rails', :git => "git://github.com/hiravgandhi/angularjs-rails.git"
 end
 
 group :development, :test do
