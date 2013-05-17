@@ -12,7 +12,7 @@ set :scm, :git
 #set :whenever_command, "bundle exec whenever"
 
 #task :staging do
-  #set :domain,    "my.chalkle.com"
+  #set :domain,    "taglich.instantiate.me"
   #set :branch,    "staging"
   #set :rails_env, "staging"
   #set :deploy_to, "/home/#{user}/staging"
