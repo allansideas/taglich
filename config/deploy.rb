@@ -9,6 +9,8 @@ set :rake, "bundle exec rake"
 set :use_sudo,    false
 set :scm, :git
 
+set :rvm_ruby_string, :local
+
 #set :whenever_command, "bundle exec whenever"
 
 #task :staging do
@@ -25,7 +27,7 @@ set :scm, :git
 
 task :production do
   set :domain,    "taglich.instantiate.me"
-  set :branch,    "production"
+  set :branch,    "master"
   set :rails_env, "production"
   set :deploy_to, "/home/#{user}/production"
   set :bundle_without, [:development, :test]
@@ -64,5 +66,6 @@ after "deploy:update", "deploy:cleanup"
 
 require './config/boot'
 load 'deploy/assets'
+require 'rvm/capistrano'
 require 'bundler/capistrano'
 #require 'whenever/capistrano'
