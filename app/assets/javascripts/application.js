@@ -15,6 +15,7 @@
 //= require jquery.ui.all
 //= require touch-punch
 //= require flotr2
+//= require detect_timezone
 //= require foundation
 //= require unstable/angular
 //= require angular-resource
