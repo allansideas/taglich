@@ -27,6 +27,12 @@ angular.module('dates_times', ['resources.dates_times'])
         controller: ["$scope", "$stateParams", "$state", "$location", "Day", "DayByDate", ($scope, $stateParams, $state, $location, Day, DayByDate) ->
           $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day})
           $scope.currentDayURL = "/"+$stateParams.year+"/"+$stateParams.month+"/"+$stateParams.day
+          $scope.todayURL = ()->
+            today = new Date()
+            today = formatDateURL(today)
+            console.log "((((((:"
+            console.log today
+            today
           $scope.prevDayURL = ()->
             date_string = $scope.currentDayURL
             date = getJSDateFromURLString(date_string)

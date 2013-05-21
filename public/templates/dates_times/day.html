@@ -13,7 +13,7 @@
       </div>
       <div class="small-1 columns">
         <a href="#{{nextDayURL()}}" class="full-width-button med blue-dark
-          button-text-icon">
+          button-text-icon" ng-show="!(currentDayURL === todayURL())">
           <i class="foundicon-right-arrow"></i>
         </a>
       </div>
@@ -61,5 +61,8 @@
     </div>
   </section>
   <section class="metrics row" ui-view="metrics" ></section>
-  <section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>
+  <!--<section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>-->
+  <div class="row">
+    <a href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a>
+  </div>
 </div>
