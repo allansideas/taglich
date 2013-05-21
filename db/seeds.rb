@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 @user = User.create({email: "allan@enspiral.com", password: "password", password_confirmation: "password"})
-@yesterday = Day.create({date: Date.today - 1.days})
+@yesterday = Day.create({date: Time.zone.now.to_date - 1.days})
 @yesterday.save!
 @user.days << @yesterday
 @user.save!

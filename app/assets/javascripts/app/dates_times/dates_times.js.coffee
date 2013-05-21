@@ -128,6 +128,8 @@ angular.module('dates_times', ['resources.dates_times'])
                   mode: 'time'
                   timeUnit: 'second'
                   labelsAngle: 45
+                yaxis:
+                  min: 0
                 selection:
                   mode: 'x'
                 HtmlText: false

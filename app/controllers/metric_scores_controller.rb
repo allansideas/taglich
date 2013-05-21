@@ -1,6 +1,6 @@
 class MetricScoresController < ApplicationController
   def index
-    @day = Day.where(date: Date.today, user_id: current_user.id).first
+    @day = Day.where(date: Time.zone.now.to_date, user_id: current_user.id).first
     @metric_scores = MetricScore.find(:all, joins: :metric, order: 'metric.sort_order ASC').where(user: current_user, day: @day)
     render json: @metric_scores
   end

@@ -7,10 +7,10 @@ class Day < ActiveRecord::Base
 
   def self.create_first_or_fill_in_days(user)
     user_last_day = user.days.last
-    if user_last_day.blank? || user_last_day.date == Date.today - 1.days 
-      build_day(Date.today, user)
-    elsif user_last_day.date != Date.today 
-      ((user_last_day.date + 1.day)..Date.today).each do |date|
+    if user_last_day.blank? || user_last_day.date == Time.zone.now.to_date - 1.days 
+      build_day(Time.zone.now.to_date, user)
+    elsif user_last_day.date != Time.zone.now.to_date
+      ((user_last_day.date + 1.day)..Time.zone.now.to_date).each do |date|
         build_day(date, user)
       end
     end
