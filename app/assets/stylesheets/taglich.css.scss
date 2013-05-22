@@ -100,7 +100,9 @@ nav .date {
   border-top: dashed 1px #666;
   border-bottom: dashed 1px #666;
 }
-
+.opaque {
+  opacity: 0.6;
+}
 .full-width-button {
   display: block;
   &.blue-dark {
@@ -230,9 +232,26 @@ nav .date {
   }
 }
 
+.metric_score_graph {
+  margin-bottom: emCalc(48px);
+}
+
+.flotr-grid-label-y {
+  font-size: 12px;
+}
+
+.flotr-grid-label-x {
+  -webkit-transform: rotate(296deg);
+  -moz-transform: rotate(296deg);
+  -o-transform: rotate(296deg);
+  writing-mode: lr-tb;
+  padding-top: 24px;
+}
+
 .flash-cards {
   background: $gray-darkish;
 }
+
 .flash-card {
   height: 115px;
   padding: emCalc(16px);

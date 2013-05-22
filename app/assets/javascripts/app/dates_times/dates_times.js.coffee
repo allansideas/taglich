@@ -30,8 +30,6 @@ angular.module('dates_times', ['resources.dates_times'])
           $scope.todayURL = ()->
             today = new Date()
             today = formatDateURL(today)
-            console.log "((((((:"
-            console.log today
             today
           $scope.prevDayURL = ()->
             date_string = $scope.currentDayURL
@@ -69,7 +67,7 @@ angular.module('dates_times', ['resources.dates_times'])
                 $scope.metric.name = ''
               )
             )
-
+          #equivalent to delete (inactive/active).
           $scope.changeMetricState = (state, ms, $index)->
             $scope.day.metric_scores.splice($index, 1)
             UserMetric.update({uid: $scope.day.user.id, id: ms.metric.id}, {metric: {state: state}}, (data)->
@@ -87,18 +85,16 @@ angular.module('dates_times', ['resources.dates_times'])
           $scope.sort = (params)->
             MetricSorter.sort(metrics: params)
 
-          #$scope.$watch "day.metric_scores", ((new_val, old_val) ->
-          #), true
-
           $scope.$watch('day.metric_scores', (newval, oldval)->
-                       console.log newval
-                       console.log oldval
                        if newval? and oldval?
                          if newval.length == oldval.length
                           if (newval != oldval)
                             for ms, index in newval
                               if ms.score != oldval[index].score
-                                MetricScore.update({id: ms.id, score: ms.score})
+                                MetricScore.update({id: ms.id, score: ms.score}, (data)->
+                                  metric = data.metric.sort_order - 1
+                                  $scope.day.metric_scores[metric].streak = data.streak
+                                )
           , true)
         ]
       'flash_cards@day':
@@ -130,15 +126,18 @@ angular.module('dates_times', ['resources.dates_times'])
               d1 = data
 
               options =
+                HtmlText: true
+                grid:
+                  color: 'b4d0d6'
+                  tickColor: '2c2e2e'
                 xaxis:
                   mode: 'time'
                   timeUnit: 'second'
                   labelsAngle: 45
                 yaxis:
                   min: 0
-                selection:
-                  mode: 'x'
-                HtmlText: false
+                #selection:
+                  #mode: 'x'
                 title: ms.metric.name
               
               drawGraph = (opts)->
@@ -147,21 +146,21 @@ angular.module('dates_times', ['resources.dates_times'])
 
               graph = drawGraph()
 
-              Flotr.EventAdapter.observe container, "flotr:select", (area) ->
-                graph = drawGraph(
-                  xaxis:
-                    min: area.x1
-                    max: area.x2
-                    mode: "time"
-                    labelsAngle: 45
+              #Flotr.EventAdapter.observe container, "flotr:select", (area) ->
+                #graph = drawGraph(
+                  #xaxis:
+                    #min: area.x1
+                    #max: area.x2
+                    #mode: "time"
+                    #labelsAngle: 45
 
-                  yaxis:
-                    min: area.y1
-                    max: area.y2
-                )
+                  #yaxis:
+                    #min: area.y1
+                    #max: area.y2
+                #)
 
-              Flotr.EventAdapter.observe container, "flotr:click", ->
-                graph = drawGraph()
+              #Flotr.EventAdapter.observe container, "flotr:click", ->
+                #graph = drawGraph()
             )
           
           #$scope.flotr(document.getElementById('chart'), $scope.$parent.day.metric_scores[0])
