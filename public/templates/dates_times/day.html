@@ -3,8 +3,9 @@
     <div class="row collapse">
       <!--{{$state.current.name}}
       {{$stateParams}}-->
-      <div class="small-1 columns">
-        <a href="#{{prevDayURL()}}" class="full-width-button med blue-dark button-text-icon">
+      <div class="small-1 columns" >
+        <a href="#{{prevDayURL()}}" class="full-width-button med blue-dark button-text-icon"
+          ng-show="!day.first_day_created" >
           <i class="foundicon-left-arrow"></i>
         </a>
       </div>
