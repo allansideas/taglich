@@ -35,7 +35,7 @@ class MetricScoreSerializer < ActiveModel::Serializer
         days = 0
       end
     else
-      zero_date = object.day.user.days.joins(:metric_scores).where('days.date <= ? AND metric_scores.score = 0 AND metric_scores.metric_id = ?', object.day.date - 1.days, object.metric.id).order('days.date desc').limit(1).first.date
+      zero_date = object.day.user.days.joins(:metric_scores).where('days.date <= ? AND metric_scores.score = 0 AND metric_scores.metric_id = ?', object.day.date - 1.days, object.metric.id).order('days.date desc').limit(1).first
       if zero_date
         days = ((object.day.date - 1.days) - zero_date.date).to_i
       else
