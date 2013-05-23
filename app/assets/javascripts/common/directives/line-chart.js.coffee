@@ -1,5 +1,5 @@
 angular.module('directives.line_chart', [])
-.directive "lineChart", ($http)->
+.directive("lineChart", ["$http", ($http)->
   restrict: "A"
   require: "?ngModel, $http"
   link: (scope, element, attr, controller) ->
@@ -33,5 +33,5 @@ angular.module('directives.line_chart', [])
 
     data = scope[attr.ngModel]
     scope.$watch "data", init(data)
-
+])
 
