@@ -43,13 +43,22 @@ class MetricScoresController < ApplicationController
 
   def graph_data
     metric_score = MetricScore.find(params[:id])
-    metric_id = metric_score.metric.id
     @data = []
-    current_user.days.each do |d|
-      d.metric_scores.where(metric_id: metric_id).order('created_at desc').each do |ms|
-        @data << [d.date.to_time.utc.to_i, ms.score]
+    past_scores = MetricScore.includes(:day, :metric).where("days.user_id = ? AND metric_scores.metric_id = ?", metric_score.day.user.id, metric_score.metric.id).order('days.date DESC').reverse!
+    if past_scores
+      past_scores.each do |ps|
+        @data << [ps.day.date.to_time.utc.to_i, ps.score]
       end
     end
+    #If infact there are days with no scores use this, but they should be built each time user logs in
+    #metric_score = MetricScore.find(params[:id])
+    #metric_id = metric_score.metric.id
+    #@data = []
+    #current_user.days.each do |d|
+      #d.metric_scores.includes(:day).where('metric_scores.metric_id = ?', metric_id).order('days.date desc').each do |ms|
+        #@data << [d.date.to_time.utc.to_i, ms.score]
+      #end
+    #end
     render json: @data
   end
 end

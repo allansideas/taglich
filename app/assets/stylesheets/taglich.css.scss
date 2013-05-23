@@ -257,7 +257,7 @@ nav .date {
 }
 
 .metric_score_graph {
-  margin-bottom: emCalc(48px);
+  margin-bottom: emCalc(68px);
   .loading-gif {
     position: relative;
     left: 49%;
@@ -279,7 +279,8 @@ nav .date {
   -moz-transform: rotate(296deg);
   -o-transform: rotate(296deg);
   writing-mode: lr-tb;
-  padding-top: 24px;
+  padding-right: 30px;
+  white-space: nowrap;
 }
 
 .flash-cards {
