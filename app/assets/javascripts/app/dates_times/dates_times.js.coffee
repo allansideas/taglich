@@ -47,6 +47,8 @@ angular.module('dates_times', ['resources.dates_times'])
           $scope.isEditMode = false
           $scope.show_graphs = ()->
             $state.transitionTo('day.graphs', $stateParams)
+          $scope.show_metrics = ()->
+            $state.transitionTo('day.metrics', $stateParams)
         ]
       'metrics@day':
         templateUrl: 'templates/metrics/metrics.html'
@@ -105,65 +107,6 @@ angular.module('dates_times', ['resources.dates_times'])
       'metrics@day':
         templateUrl: 'templates/metrics/metrics_graphs.html'
         controller: ["$scope", "$stateParams", "$state", "$http", "Day", "DayByDate", ($scope, $stateParams, $state, $http,  Day, DayByDate ) ->
-          $scope.show_metrics = ()->
-            $state.transitionTo('day', $stateParams)
-
-          $scope.$watch("day.metric_scores", (value)->
-              val = value || null;            
-              if (val)
-                for v, index in val
-                  if (v.last_8.length)
-                    chart = 'chart_'+ index
-                    console.log chart
-                    $scope.flotr('chart_'+index, v)
-          )
-          $scope.flotr = (container_id, ms)->
-            $http(
-              method: "GET"
-              url: "/metric_scores/"+ms.id+"/graph_data"
-            ).success((data, status, headers, config) ->
-              container = document.getElementById(container_id)
-              d1 = data
-
-              options =
-                HtmlText: true
-                grid:
-                  color: 'b4d0d6'
-                  tickColor: '2c2e2e'
-                xaxis:
-                  mode: 'time'
-                  timeUnit: 'second'
-                  labelsAngle: 45
-                yaxis:
-                  min: 0
-                #selection:
-                  #mode: 'x'
-                title: ms.metric.name
-              
-              drawGraph = (opts)->
-                o = Flotr._.extend(Flotr._.clone(options), opts or {})
-                Flotr.draw container, [d1], o
-
-              graph = drawGraph()
-
-              #Flotr.EventAdapter.observe container, "flotr:select", (area) ->
-                #graph = drawGraph(
-                  #xaxis:
-                    #min: area.x1
-                    #max: area.x2
-                    #mode: "time"
-                    #labelsAngle: 45
-
-                  #yaxis:
-                    #min: area.y1
-                    #max: area.y2
-                #)
-
-              #Flotr.EventAdapter.observe container, "flotr:click", ->
-                #graph = drawGraph()
-            )
-          
-          #$scope.flotr(document.getElementById('chart'), $scope.$parent.day.metric_scores[0])
         ]   
       'flash_cards':
         template: ''

@@ -4,6 +4,7 @@ app = angular.module("Taglich", [
   'metrics',
   'directives.ng_focus_blur'
   'directives.drag_drop'
+  'directives.line_chart'
 ])
 
 app.config(["$httpProvider", "$anchorScrollProvider", (provider, $anchorScrollProvider)-> 

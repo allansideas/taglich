@@ -1,4 +1,26 @@
 <div ng-repeat="ms in day.metric_scores" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
-  <div id="chart_{{$index}}" class="metric_score_graph" style="height: 200px; width: 100%;"
-    ng-click="flotr('chart_'+$index, ms)" ng-show="ms.last_8.length > 0"></div>
+  <!--<div id="chart_{{$index}}" class="metric_score_graph" style="height: 200px; width: 100%;"-->
+    <!--ng-click="flotr('chart_'+$index, ms)" ng-show="ms.last_8.length > 0"></div>-->
+  <div line-chart class="metric_score_graph" style="height: 200px; width: 100%;"
+    ng-model="ms" 
+    flt-Linechartoptions="
+      {
+      HtmlText: true,
+      grid: {
+        color: 'b4d0d6',
+        tickColor: '2c2e2e'
+      },
+      xaxis: {
+        mode: 'time',
+        timeUnit: 'second',
+        labelsAngle: 45
+      },
+      yaxis: {
+        min: 0
+      },
+      title: ms.metric.name
+      }
+      " >
+      <img src="/assets/rails.png" />
+    </div> 
 </div>
