@@ -12,11 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.draggable
+//= require jquery.ui.droppable
+//= require jquery.ui.sortable
 //= require touch-punch
 //= require flotr2
 //= require detect_timezone
-//= require foundation
 //= require unstable/angular
 //= require angular-resource
 //= require ./common/libs/angular-ui-states
