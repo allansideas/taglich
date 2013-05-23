@@ -52,6 +52,10 @@ html {
        overflow-y: scroll;
 }
 
+body {
+  font-family: "Rambla", sans-serif;
+}
+
 small {
   font-size: 70%;
 }
@@ -87,6 +91,19 @@ label.inline.label-2-rows {
     background: #131314;
   }
 }
+
+.intro {
+  margin-top: -8px;
+  padding: emCalc(12px) 0 0 0;
+  background: asset-url("sunrise.jpg", image) left center no-repeat;
+  text-align: center;
+  h1 { font-weight: bold; }
+  hr { 
+    color: $gray-med-dark;
+  }
+
+}
+
 nav .date {
   padding-top: emCalc(8px);
   font-weight: bold;
@@ -107,7 +124,7 @@ nav .date {
   display: block;
   &.blue-dark {
     @include button(emCalc(8px), $blue-med, 0, true, false, false);
-    border-bottom: solid 4px lighten($blue-med, 4%);
+    border-bottom: solid 4px lighten($blue-med, 11%);
     &.selected {
       @include button(emCalc(8px), darken($blue-med, 8%), 0, true, false, false);
       font-size: emCalc(18px);
@@ -181,7 +198,7 @@ nav .date {
 }
 .button-text-icon {
   i {
-    font-size: emCalc(11.5px);
+    font-size: 1em;
   }
 }
 
