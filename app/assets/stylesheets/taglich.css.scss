@@ -72,6 +72,7 @@ label.inline.label-2-rows {
 .inline-checkbox {
   input[type=checkbox] {
     margin-right: emCalc(6px);
+    margin-top: emCalc(3px);
   }
   label {
     font-weight: normal;
@@ -101,7 +102,11 @@ label.inline.label-2-rows {
   hr { 
     color: $gray-med-dark;
   }
-
+}
+.features {
+  .columns {
+    text-align: center;
+  }
 }
 
 nav .date {
@@ -199,6 +204,8 @@ nav .date {
 .button-text-icon {
   i {
     font-size: 1em;
+    display: inline-block;
+    line-height: emCalc(9px);
   }
 }
 
