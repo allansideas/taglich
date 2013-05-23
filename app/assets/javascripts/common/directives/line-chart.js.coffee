@@ -14,14 +14,21 @@ angular.module('directives.line_chart', [])
         url: "/metric_scores/"+ms.id+"/graph_data"
       ).success((data, status, headers, config) ->
         d1 = data
+        console.log data
+        if data.length > 1
+          temp_options = getOptions()
 
-        temp_options = getOptions()
+          drawGraph = (opts)->
+            o = Flotr._.extend(Flotr._.clone(temp_options), opts or {})
+            Flotr.draw element[0], [d1], o
 
-        drawGraph = (opts)->
-          o = Flotr._.extend(Flotr._.clone(temp_options), opts or {})
-          Flotr.draw element[0], [d1], o
-
-        graph = drawGraph()
+          element.hide()
+          element.fadeIn()
+          graph = drawGraph()
+        else
+          console.log "HI"
+          element[0].innerHTML = "<p class='data-msg'>" + ms.metric.name + ": Not enough data yet </p>"
+          element.fadeIn()
       )
 
     data = scope[attr.ngModel]

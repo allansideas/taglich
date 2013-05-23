@@ -7,7 +7,7 @@
 # Ignore bundler config
 /.bundle
 
-*.sqlite
+/db/*.sqlite3
 /config/database.yml
 /vendor/bundle
 /public/system

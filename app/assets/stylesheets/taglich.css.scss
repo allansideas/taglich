@@ -234,6 +234,16 @@ nav .date {
 
 .metric_score_graph {
   margin-bottom: emCalc(48px);
+  .loading-gif {
+    position: relative;
+    left: 49%;
+    top: 49%;
+  }
+  .data-msg {
+    position: relative;
+    top: 49%;
+    text-align: center;
+  }
 }
 
 .flotr-grid-label-y {
