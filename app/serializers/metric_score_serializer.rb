@@ -12,30 +12,25 @@ class MetricScoreSerializer < ActiveModel::Serializer
 
   def build_historical
     @data = []
-    days = object.day.user.days.where('date < ? AND date >= ?', object.day.date, object.day.date - 8.days)
-    if days
-      days.each_with_index do |d, i|
-        metric_score = MetricScore.where(day_id: d.id, metric_id: object.metric.id).first
-        if metric_score
-          @data << {date: pretty_date(d.date), score: metric_score.score}
-        end
+    past_scores = MetricScore.includes(:day, :metric).where("days.user_id = ? AND metric_scores.metric_id = ?", object.day.user.id, object.metric.id).order('days.date DESC').offset(1).limit(8).reverse!
+    if past_scores
+      past_scores.each do |ps|
+        @data << {date: pretty_date(ps.day.date), score: ps.score}
       end
-    else
-      @data << {score: "new"}
     end
     @data
   end
 
   def build_streak
     if object.score > 0
-      zero_date = object.day.user.days.joins(:metric_scores).where('days.date <= ? AND metric_scores.score = 0 AND metric_scores.metric_id = ?', object.day.date, object.metric.id).order('days.date desc').limit(1).first
+      zero_date = object.day.user.days.includes(:metric_scores).where('days.date <= ? AND metric_scores.score = 0 AND metric_scores.metric_id = ?', object.day.date, object.metric.id).order('days.date desc').limit(1).first
       if zero_date
         days = (object.day.date - zero_date.date).to_i
       else
         days = 0
       end
     else
-      zero_date = object.day.user.days.joins(:metric_scores).where('days.date <= ? AND metric_scores.score = 0 AND metric_scores.metric_id = ?', object.day.date - 1.days, object.metric.id).order('days.date desc').limit(1).first
+      zero_date = object.day.user.days.includes(:metric_scores).where('days.date <= ? AND metric_scores.score = 0 AND metric_scores.metric_id = ?', object.day.date - 1.days, object.metric.id).order('days.date desc').limit(1).first
       if zero_date
         days = ((object.day.date - 1.days) - zero_date.date).to_i
       else

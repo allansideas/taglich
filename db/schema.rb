@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130519113624) do
+ActiveRecord::Schema.define(:version => 20130523132839) do
 
   create_table "days", :force => true do |t|
     t.date     "date"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130519113624) do
   end
 
   add_index "days", ["date"], :name => "index_days_on_date"
+  add_index "days", ["user_id"], :name => "index_days_on_user_id"
 
   create_table "metric_scores", :force => true do |t|
     t.integer  "day_id"
@@ -42,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20130519113624) do
     t.integer  "sort_order"
     t.string   "state"
   end
+
+  add_index "metrics", ["user_id"], :name => "index_metrics_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
