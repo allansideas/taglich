@@ -87,6 +87,14 @@ angular.module('dates_times', ['resources.dates_times'])
           $scope.sort = (params)->
             MetricSorter.sort(metrics: params)
 
+          $scope.getMetricRowClass = (ms)->
+            if (ms.score > ms.last_8[ms.last_8.length - 1].score) || (ms.metric.score_type == "boolean" && ms.score == 1)
+              return "green-row"
+            if ms.score > 0 && ms.score < ms.last_8[ms.last_8.length - 1].score && ms.metric.score_type != "boolean"
+              return "orange-row"
+            "gray-row"
+
+
           $scope.updateAfterWatch = (ms)->
              if ms.score == null
                return

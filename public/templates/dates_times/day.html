@@ -65,7 +65,7 @@
   <!--<section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>-->
   <div class="row">
     <div class="row collapse">
-      <div class="small-3 columns right">
+      <div class="small-3 columns right" ng-show="day.metric_scores.length > 0" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
         <a class="right full-width-button med gray-darkish button-text-icon selected" href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a>
       </div>
     </div>

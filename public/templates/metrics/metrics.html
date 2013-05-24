@@ -47,11 +47,11 @@
       <!--<small>Yesterday</small>-->
     <!--</div>-->
   <!--</div>-->
-  <div id="metrics_{{ms.metric.id}}" class="metric" ng-repeat="ms in day.metric_scores" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
+  <div id="metrics_{{ms.metric.id}}" class="metric {{ getMetricRowClass(ms) }} " ng-repeat="ms in day.metric_scores" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
     <!--<div class="prev_score text-center" ng-repeat="ws in ms.last_8">-->
       <!--<small>{{ws.score}}</small>-->
     <!--</div>-->
-    <div class="padded-row row collapse gray-darkish marginless-inputs" ng-show="ms.metric.score_type == 'big_number'">
+    <div class="padded-row row collapse marginless-inputs" ng-show="ms.metric.score_type == 'big_number'">
       <div class="small-1 columns move-button gray-faded" ng-show="$parent.isEditMode">
         <i class="foundicon-up-arrow"></i>
         <br />
@@ -60,7 +60,7 @@
       <div class="small-9 columns">
         <label for="ms-score" class="inline ">{{ms.metric.name}}</label>
       </div>
-      <div class="small-1 columns text-center gray-faded" ng-show="!$parent.isEditMode">
+      <div class="small-1 columns text-center gray-faded " ng-show="!$parent.isEditMode">
         <small>
           Beat
           <br />
