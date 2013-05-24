@@ -52,7 +52,7 @@ angular.module('dates_times', ['resources.dates_times'])
         ]
       'metrics@day':
         templateUrl: 'templates/metrics/metrics.html'
-        controller: ["$scope", "$stateParams", "$state", "MetricScore", "UserMetric", "MetricSorter", ($scope, $stateParams, $state, MetricScore, UserMetric, MetricSorter) ->
+        controller: ["$scope", "$stateParams", "$state", "uiDebounce", "MetricScore", "UserMetric", "MetricSorter", ($scope, $stateParams, $state, uiDebounce, MetricScore, UserMetric, MetricSorter) ->
           $scope.isAdding = false
           #to be added metric
           $scope.metric = {}
@@ -87,16 +87,23 @@ angular.module('dates_times', ['resources.dates_times'])
           $scope.sort = (params)->
             MetricSorter.sort(metrics: params)
 
+          $scope.updateAfterWatch = (ms)->
+             if ms.score == null
+               return
+             MetricScore.update({id: ms.id, score: ms.score}, (data)->
+               metric = data.metric.sort_order - 1
+               $scope.day.metric_scores[metric].streak = data.streak
+             )
+
+          $scope.debouncedUpdateMS = uiDebounce($scope.updateAfterWatch, 300, false)
+
           $scope.$watch('day.metric_scores', (newval, oldval)->
-                       if newval? and oldval?
-                         if newval.length == oldval.length
-                          if (newval != oldval)
-                            for ms, index in newval
-                              if ms.score != oldval[index].score
-                                MetricScore.update({id: ms.id, score: ms.score}, (data)->
-                                  metric = data.metric.sort_order - 1
-                                  $scope.day.metric_scores[metric].streak = data.streak
-                                )
+            if newval? and oldval?
+              if newval.length == oldval.length
+               if (newval != oldval)
+                 for ms, index in newval
+                   if ms.score != oldval[index].score
+                     $scope.debouncedUpdateMS(ms)
           , true)
         ]
       'flash_cards@day':

@@ -12,7 +12,7 @@ class MetricScoreSerializer < ActiveModel::Serializer
 
   def build_historical
     @data = []
-    past_scores = MetricScore.includes(:day, :metric).where("days.user_id = ? AND metric_scores.metric_id = ?", object.day.user.id, object.metric.id).order('days.date DESC').offset(1).limit(8).reverse!
+    past_scores = MetricScore.includes(:day, :metric).where("days.date <= ? AND days.user_id = ? AND metric_scores.metric_id = ?",object.day.date, object.day.user.id, object.metric.id).order('days.date DESC').offset(1).limit(8).reverse!
     if past_scores
       past_scores.each do |ps|
         @data << {date: pretty_date(ps.day.date), score: ps.score}
