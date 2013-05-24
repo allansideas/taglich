@@ -44,7 +44,7 @@ class MetricScoresController < ApplicationController
   def graph_data
     metric_score = MetricScore.find(params[:id])
     @data = []
-    past_scores = MetricScore.includes(:day, :metric).where("days.user_id = ? AND metric_scores.metric_id = ?", metric_score.day.user.id, metric_score.metric.id).order('days.date DESC').reverse!
+    past_scores = MetricScore.includes(:day, :metric).where("days.user_id = ? AND metric_scores.metric_id = ?", metric_score.day.user.id, metric_score.metric.id).order('days.date DESC').offset(1).reverse!
     if past_scores
       past_scores.each do |ps|
         @data << [ps.day.date.to_time.utc.to_i, ps.score]
