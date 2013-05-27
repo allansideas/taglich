@@ -19,6 +19,10 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'angularjs-rails', :git => "git://github.com/hiravgandhi/angularjs-rails.git"
 
+
+gem 'jbuilder'
+gem 'nokogiri'
+gem 'mechanize'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

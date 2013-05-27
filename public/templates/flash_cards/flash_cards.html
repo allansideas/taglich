@@ -1,14 +1,34 @@
 <div class="row collapse">
-  <div class="flash-card front small-8 columns">
+  <div class="flash-card front small-12 columns"
+       ng-show="showing_side === 1"
+    >
     <div class="inner">
       <div class="content">
-        umbedinkt 
+        {{day.card.side_1}} 
       </div>
     </div>
   </div>
-  <div class="small-4 columns no-right-padding">
-    <a class="full-width-button med blue-dark" href="#">Flip it</a>
-    <a class="full-width-button med green-dark" href="#">Got it</a>
-    <a class="full-width-button med red-dark last" href="#">Forgot it</a>
+  <div class="flash-card back small-12 columns"
+     ng-show="showing_side === 2"
+    >
+    <div class="inner">
+      <div class="content">
+        {{day.card.side_2}} 
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row collapse">
+  <div class="small-4 columns">
+    <a class="full-width-button med blue-dark"
+       ng-click="flip()"
+      >Flip it</a>
+  </div>
+  <div class="small-4 columns">
+    <a class="full-width-button med green-dark"
+      ng-click="got_it()">Got it</a>
+  </div>
+  <div class="small-4 columns">
+    <a class="full-width-button med red-dark" ng-click="muffed_it()">Sheeeeeit</a>
   </div>
 </div>

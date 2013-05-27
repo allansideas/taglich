@@ -61,8 +61,8 @@
       </div>
     </div>
   </section>
+  <section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>
   <section class="metrics row" ui-view="metrics" ></section>
-  <!--<section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>-->
   <div class="row">
     <div class="row collapse">
       <div class="small-3 columns right" ng-show="day.metric_scores.length > 0" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">

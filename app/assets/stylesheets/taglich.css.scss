@@ -189,9 +189,6 @@ nav .date {
   border-right: none;
   border-left: none;
   border-top: none;
-  &.last {
-    margin-bottom: 0;
-  }
 }
 
 .full-width-button.in-row {
@@ -307,10 +304,12 @@ nav .date {
 
 .flash-cards {
   background: $gray-darkish;
+  .full-width-button {
+    margin-bottom: 0;
+  }
 }
 
 .flash-card {
-  height: 115px;
   padding: emCalc(16px);
   display: table;
   .inner {

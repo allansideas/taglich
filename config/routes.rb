@@ -4,6 +4,7 @@ Taglich::Application.routes.draw do
   devise_for :users
 
   match 'days/:year/:month/:day' => 'days#find_by_date'
+  match 'fetch_german_remember' => 'remembers#fetch_german_remember'
 
   resources :days do
     collection do

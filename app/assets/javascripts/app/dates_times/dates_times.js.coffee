@@ -2,9 +2,15 @@ angular.module('dates_times', ['resources.dates_times'])
 
 
 .config(['$stateProvider', '$routeProvider', '$urlRouterProvider', ($stateProvider, $routeProvider, $urlRouterProvider)->
+  
   #move to filter
   normalizeDate = (date)->
     date.replace(/\b(\d{1})\b/g, '0$1')
+
+  getRandomInt = (min, max)->
+    return Math.floor(Math.random() * (max - min + 1)) + min
+
+
 
   getJSDateFromURLString = (date_string)->
     #Y/M/D -> [0] = Y, [1] = M, [2] = D
@@ -24,8 +30,18 @@ angular.module('dates_times', ['resources.dates_times'])
     views:
       '':
         templateUrl: 'templates/dates_times/day.html'
-        controller: ["$scope", "$stateParams", "$state", "$location", "Day", "DayByDate", ($scope, $stateParams, $state, $location, Day, DayByDate) ->
-          $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day})
+        controller: ["$scope", "$stateParams", "$state", "$location", "$http", "Day", "DayByDate", ($scope, $stateParams, $state, $location, $http, Day, DayByDate) ->
+          $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day}, (day_data)->
+            $http(
+              method: "GET"
+              url: "/fetch_german_remember"
+            ).success((data, status, headers, config) ->
+              day_data.cards = data
+              day_data.rand = getRandomInt(0, day_data.cards.length - 1)
+              day_data.card = day_data.cards[day_data.rand]
+            )
+          )
+          console.log $scope.day
           $scope.currentDayURL = "/"+$stateParams.year+"/"+$stateParams.month+"/"+$stateParams.day
           $scope.todayURL = ()->
             today = new Date()
@@ -88,11 +104,15 @@ angular.module('dates_times', ['resources.dates_times'])
             MetricSorter.sort(metrics: params)
 
           $scope.getMetricRowClass = (ms)->
-            if (ms.score > ms.last_8[ms.last_8.length - 1].score) || (ms.metric.score_type == "boolean" && ms.score == 1)
-              return "green-row"
-            if ms.score > 0 && ms.score < ms.last_8[ms.last_8.length - 1].score && ms.metric.score_type != "boolean"
-              return "orange-row"
-            "gray-row"
+            if ms.last_8.length > 0?
+              if (ms.score > ms.last_8[ms.last_8.length - 1].score) || (ms.metric.score_type == "boolean" && ms.score == 1)
+                return "green-row"
+              if ms.score > 0 && ms.score < ms.last_8[ms.last_8.length - 1].score && ms.metric.score_type != "boolean"
+                return "orange-row"
+              else
+                return "gray-row"
+            else
+              return "gray-row"
 
 
           $scope.updateAfterWatch = (ms)->
@@ -116,6 +136,28 @@ angular.module('dates_times', ['resources.dates_times'])
         ]
       'flash_cards@day':
         templateUrl: 'templates/flash_cards/flash_cards.html'
+        controller: ["$scope", "$stateParams", "$state", "$http", ($scope, $stateParams, $state, $http) ->
+          getRandomInt = (min, max)->
+            return Math.floor(Math.random() * (max - min + 1)) + min
+
+          $scope.showing_side = 1
+          $scope.flip = ()->
+            sides = [1,2]
+            $scope.showing_side = sides[sides.length - $scope.showing_side]
+          $scope.got_it = ()->
+            $scope.day.cards.splice($scope.day.rand, 1)
+            if $scope.day.cards.length == 0
+              $scope.day.card = {}
+              $scope.day.card.side_1 = "Done" 
+              $scope.day.card.side_2 = "Done" 
+              return $scope.day.card
+            $scope.day.rand = getRandomInt(0, $scope.day.cards.length - 1)
+            $scope.day.card = $scope.day.cards[$scope.day.rand]
+          $scope.muffed_it = ()->
+            $scope.day.rand = getRandomInt(0, $scope.day.cards.length - 1)
+            $scope.day.card = $scope.day.cards[$scope.day.rand]
+
+        ]
   ).state('day.graphs',
     url: '/graphs'
     views:
