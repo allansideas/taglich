@@ -9,7 +9,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def build_cards
     @data = []
-    object.cards.each do |card|
+    object.cards.includes(:user_card_scores).each do |card|
       card[:scores] = UserCardScore.where(user_id: object.id, card_id: card.id)
       card[:steps] = card.card_steps
       @data << card

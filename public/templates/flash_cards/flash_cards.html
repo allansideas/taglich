@@ -1,4 +1,10 @@
-<div class="row collapse">
+<div ng-show="$parent.isEditMode">
+  <input type="url" placeholder="Must be a link from flashcardexchange.com" ng-model="url"/>
+  <div class="full-width-button med blue-dark" ng-click="addCardSet()">
+    Add Set
+  </div>
+</div>
+<div class="row collapse" ng-show="!$parent.isEditMode">
   <div class="flash-card front small-12 columns"
        ng-show="showing_side === 1"
     >
@@ -18,7 +24,7 @@
     </div>
   </div>
 </div>
-<div class="row collapse">
+<div class="row collapse" ng-show="!$parent.isEditMode">
   <div class="small-4 columns">
     <a class="full-width-button med blue-dark"
        ng-click="flip()"

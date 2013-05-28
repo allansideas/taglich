@@ -10,4 +10,7 @@ angular.module('resources.flash_cards')
        }
     )
   ])
+  .factory("CardSet", ["$resource", ($resource) ->
+    $resource("/card_sets/:id", {id: "@id"})
+  ])
 

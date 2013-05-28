@@ -24,6 +24,8 @@ Taglich::Application.routes.draw do
     end
   end
 
+  resources :card_sets
+
   resources :metrics do
     collection { post :sort }
   end

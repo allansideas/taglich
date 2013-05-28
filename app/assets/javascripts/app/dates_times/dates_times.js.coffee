@@ -32,7 +32,6 @@ angular.module('dates_times', ['resources.dates_times'])
         templateUrl: 'templates/dates_times/day.html'
         controller: ["$scope", "$stateParams", "$state", "$location", "$http", "Day", "DayByDate", ($scope, $stateParams, $state, $location, $http, Day, DayByDate) ->
           $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day})
-          console.log $scope.day
           $scope.currentDayURL = "/"+$stateParams.year+"/"+$stateParams.month+"/"+$stateParams.day
           $scope.todayURL = ()->
             today = new Date()
@@ -127,18 +126,32 @@ angular.module('dates_times', ['resources.dates_times'])
         ]
       'flash_cards@day':
         templateUrl: 'templates/flash_cards/flash_cards.html'
-        controller: ["$scope", "$stateParams", "$state", "$http", "DayByDate", "UserCardScore", ($scope, $stateParams, $state, $http, DayByDate, UserCardScore) ->
+        controller: ["$scope", "$stateParams", "$state", "$http", "$timeout", "DayByDate", "UserCardScore", "CardSet", ($scope, $stateParams, $state, $http, $timeout, DayByDate, UserCardScore, CardSet) ->
           getRandomInt = (min, max)->
             return Math.floor(Math.random() * (max - min + 1)) + min
 
+
           DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day}, (data)->
-            $scope.cards = data.user.cards
-            $scope.num_cards = data.user.cards.length
-            $scope.rand = getRandomInt(0, $scope.num_cards - 1)
-            $scope.card = data.user.cards[$scope.rand]
-            return UserCardScore.update_seen({user_id: $scope.day.user.id, card_id: $scope.card.id}, (data)-> console.log data)
+            console.log data
+            user = data.user
+            unless data.user.cards.length 
+              $scope.card = {}
+              $scope.card.steps = [{},{}]
+              $scope.card.steps[0].content = "Upload a flashcard set on the settings page" 
+              $scope.card.steps[1].content = "Upload a flashcard set on the settings page" 
+            else
+              $scope.cards = data.user.cards
+              $scope.num_cards = data.user.cards.length
+              $scope.rand = getRandomInt(0, $scope.num_cards - 1)
+              $scope.card = data.user.cards[$scope.rand]
+              UserCardScore.update_seen({user_id: user.id, card_id: $scope.cards[$scope.rand].id})
+              return data
           )
 
+          $scope.addCardSet = ()->
+            CardSet.save({name: "Test", url: $scope.url}, (data)->
+              console.log data
+            )
 
           $scope.showing_side = 1
           $scope.flip = ()->
@@ -148,6 +161,7 @@ angular.module('dates_times', ['resources.dates_times'])
           $scope.nextRandCard = ()->
             $scope.rand = getRandomInt(0, $scope.cards.length - 1)
             $scope.card = $scope.cards[$scope.rand]
+            console.log $scope.card
             UserCardScore.update_seen({user_id: $scope.day.user.id, card_id: $scope.card.id}, (data)-> console.log data)
 
           $scope.got_it = ()->
@@ -159,6 +173,7 @@ angular.module('dates_times', ['resources.dates_times'])
               $scope.card.steps[1].content = "Done" 
               return false
             $scope.nextRandCard()
+
           $scope.muffed_it = ()->
             UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card.id, score: "fail"}, (data)-> console.log data)
             #probably don't remoce it
