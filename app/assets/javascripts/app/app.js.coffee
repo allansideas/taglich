@@ -1,7 +1,8 @@
 app = angular.module("Taglich", [
   'ui.compat',
   'dates_times',
-  'metrics',
+  'resources.metrics',
+  'resources.flash_cards',
   'directives.ng_focus_blur'
   'directives.drag_drop'
   'directives.line_chart'

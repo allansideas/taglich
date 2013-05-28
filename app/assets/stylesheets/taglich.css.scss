@@ -315,6 +315,7 @@ nav .date {
   .inner {
     display: table-cell;
     vertical-align: middle;
+    padding: 0 emCalc(8px);
     text-align: center;
   }
 }

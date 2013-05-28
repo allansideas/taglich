@@ -31,16 +31,7 @@ angular.module('dates_times', ['resources.dates_times'])
       '':
         templateUrl: 'templates/dates_times/day.html'
         controller: ["$scope", "$stateParams", "$state", "$location", "$http", "Day", "DayByDate", ($scope, $stateParams, $state, $location, $http, Day, DayByDate) ->
-          $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day}, (day_data)->
-            $http(
-              method: "GET"
-              url: "/fetch_german_remember"
-            ).success((data, status, headers, config) ->
-              day_data.cards = data
-              day_data.rand = getRandomInt(0, day_data.cards.length - 1)
-              day_data.card = day_data.cards[day_data.rand]
-            )
-          )
+          $scope.day = DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day})
           console.log $scope.day
           $scope.currentDayURL = "/"+$stateParams.year+"/"+$stateParams.month+"/"+$stateParams.day
           $scope.todayURL = ()->
@@ -136,26 +127,43 @@ angular.module('dates_times', ['resources.dates_times'])
         ]
       'flash_cards@day':
         templateUrl: 'templates/flash_cards/flash_cards.html'
-        controller: ["$scope", "$stateParams", "$state", "$http", ($scope, $stateParams, $state, $http) ->
+        controller: ["$scope", "$stateParams", "$state", "$http", "DayByDate", "UserCardScore", ($scope, $stateParams, $state, $http, DayByDate, UserCardScore) ->
           getRandomInt = (min, max)->
             return Math.floor(Math.random() * (max - min + 1)) + min
+
+          DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day}, (data)->
+            $scope.cards = data.user.cards
+            $scope.num_cards = data.user.cards.length
+            $scope.rand = getRandomInt(0, $scope.num_cards - 1)
+            $scope.card = data.user.cards[$scope.rand]
+            return UserCardScore.update_seen({user_id: $scope.day.user.id, card_id: $scope.card.id}, (data)-> console.log data)
+          )
+
 
           $scope.showing_side = 1
           $scope.flip = ()->
             sides = [1,2]
             $scope.showing_side = sides[sides.length - $scope.showing_side]
+
+          $scope.nextRandCard = ()->
+            $scope.rand = getRandomInt(0, $scope.cards.length - 1)
+            $scope.card = $scope.cards[$scope.rand]
+            UserCardScore.update_seen({user_id: $scope.day.user.id, card_id: $scope.card.id}, (data)-> console.log data)
+
           $scope.got_it = ()->
-            $scope.day.cards.splice($scope.day.rand, 1)
-            if $scope.day.cards.length == 0
-              $scope.day.card = {}
-              $scope.day.card.side_1 = "Done" 
-              $scope.day.card.side_2 = "Done" 
-              return $scope.day.card
-            $scope.day.rand = getRandomInt(0, $scope.day.cards.length - 1)
-            $scope.day.card = $scope.day.cards[$scope.day.rand]
+            UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card.id, score: "pass"}, (data)-> console.log data)
+            $scope.cards.splice($scope.rand, 1)
+            if $scope.cards.length == 0
+              $scope.card = {}
+              $scope.card.steps[0].content = "Done" 
+              $scope.card.steps[1].content = "Done" 
+              return false
+            $scope.nextRandCard()
           $scope.muffed_it = ()->
-            $scope.day.rand = getRandomInt(0, $scope.day.cards.length - 1)
-            $scope.day.card = $scope.day.cards[$scope.day.rand]
+            UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card.id, score: "fail"}, (data)-> console.log data)
+            #probably don't remoce it
+            #$scope.cards.splice($scope.rand, 1)
+            $scope.nextRandCard()
 
         ]
   ).state('day.graphs',

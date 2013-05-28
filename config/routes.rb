@@ -14,6 +14,14 @@ Taglich::Application.routes.draw do
 
   resources :users do
     resources :metrics
+    member do
+      resources :card_scores do
+        member do
+          post 'update_score'
+          post 'update_seen'
+        end
+      end
+    end
   end
 
   resources :metrics do

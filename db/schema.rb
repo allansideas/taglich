@@ -11,7 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523132839) do
+ActiveRecord::Schema.define(:version => 20130527130546) do
+
+  create_table "card_sets", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "card_steps", :force => true do |t|
+    t.integer  "card_id"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "cards", :force => true do |t|
+    t.integer  "card_set_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "days", :force => true do |t|
     t.date     "date"
@@ -45,6 +65,25 @@ ActiveRecord::Schema.define(:version => 20130523132839) do
   end
 
   add_index "metrics", ["user_id"], :name => "index_metrics_on_user_id"
+
+  create_table "user_card_scores", :force => true do |t|
+    t.integer  "card_id"
+    t.integer  "user_id"
+    t.integer  "seen_times"
+    t.integer  "metric_1_count"
+    t.integer  "metric_2_count"
+    t.date     "last_seen_at"
+    t.date     "last_interacted_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "user_card_sets", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "card_set_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"
