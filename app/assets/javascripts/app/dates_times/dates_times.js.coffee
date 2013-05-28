@@ -129,6 +129,10 @@ angular.module('dates_times', ['resources.dates_times'])
             return Math.floor(Math.random() * (max - min + 1)) + min
 
 
+          $scope.wasAdded = ()->
+            $timeout(()->
+              $scope.added = false
+            , 2000)
           DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day}, (data)->
             console.log data
             user = data.user
@@ -147,8 +151,11 @@ angular.module('dates_times', ['resources.dates_times'])
           )
 
           $scope.addCardSet = ()->
+            $scope.loading_set = true
             CardSet.save({name: "Test", url: $scope.url}, (data)->
-              console.log data
+              $scope.added = true
+              $scope.loading_set = false
+              $scope.wasAdded()
             )
 
           $scope.showing_side = 1

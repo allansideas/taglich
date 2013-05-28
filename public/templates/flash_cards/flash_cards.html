@@ -1,7 +1,15 @@
 <div ng-show="$parent.isEditMode">
+  <!-- inline style is temporary, don't worry temporary -->
+  <p class="text-center"><em>Flash cards are very much in progress</em></p>
+  <p style="padding: 4px 16px;">Add a flash card set from flashcardexchange.com (pick one you like, go to the export link, and paste the address below).  At the moment it only works for certain types of sets (no multiline cards).  Try this one http://www.flashcardexchange.com/cards/german-quickly-chapter-02-supplementary-words-484027</p>
+  <div ng-show="added" class="full-width-button med green-dark"> Added Set </div>
   <input type="url" placeholder="Must be a link from flashcardexchange.com" ng-model="url"/>
+  <p class="text-center" ng-show="loading_set">
+    <img class="loading-gif" src="/assets/loader.gif" />
+    I still need to optimise sql big time
+  </p>
   <div class="full-width-button med blue-dark" ng-click="addCardSet()">
-    Add Set
+    Add Flash Cards
   </div>
 </div>
 <div class="row collapse" ng-show="!$parent.isEditMode && cards.length > 0">
