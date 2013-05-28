@@ -10,8 +10,6 @@ angular.module('dates_times', ['resources.dates_times'])
   getRandomInt = (min, max)->
     return Math.floor(Math.random() * (max - min + 1)) + min
 
-
-
   getJSDateFromURLString = (date_string)->
     #Y/M/D -> [0] = Y, [1] = M, [2] = D
     dateArry = date_string.split("/").splice(1,3)

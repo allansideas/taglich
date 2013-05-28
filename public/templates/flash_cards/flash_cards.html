@@ -4,7 +4,7 @@
     Add Set
   </div>
 </div>
-<div class="row collapse" ng-show="!$parent.isEditMode">
+<div class="row collapse" ng-show="!$parent.isEditMode && cards.length > 0">
   <div class="flash-card front small-12 columns"
        ng-show="showing_side === 1"
     >
@@ -24,7 +24,7 @@
     </div>
   </div>
 </div>
-<div class="row collapse" ng-show="!$parent.isEditMode">
+<div class="row collapse" ng-show="!$parent.isEditMode && cards.length > 0">
   <div class="small-4 columns">
     <a class="full-width-button med blue-dark"
        ng-click="flip()"
