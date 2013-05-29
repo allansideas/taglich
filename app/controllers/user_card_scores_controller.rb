@@ -4,7 +4,9 @@ class UserCardScoresController < ApplicationController
     @card_score.seen += 1
     if params[:pass]?
       @card_score.metric_1_count += 1
+    end
     if params[:metric_2_count]?
       @card_score.metric_2_count += 1
+    end
   end
 end
