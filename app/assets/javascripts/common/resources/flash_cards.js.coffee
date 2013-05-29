@@ -11,6 +11,6 @@ angular.module('resources.flash_cards')
     )
   ])
   .factory("CardSet", ["$resource", ($resource) ->
-    $resource("/card_sets/:id", {id: "@id"})
+    $resource("/card_sets/:id", {id: "@id"}, {save: {method: 'POST', isArray: true}})
   ])
 

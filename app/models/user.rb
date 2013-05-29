@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
 
   has_many :days
   has_many :metrics
-  has_many :user_card_sets
-  has_many :user_card_scores
+  has_many :user_card_sets, dependent: :destroy
+  has_many :user_card_scores, dependent: :destroy
   has_many :card_scores, :foreign_key => 'user_id', :class_name => "UserCardScore"
   has_many :card_sets, through: :user_card_sets
-  has_many :cards, through: :card_sets
+  has_many :cards, through: :user_card_scores
 end

@@ -1,7 +1,9 @@
 <div ng-show="$parent.isEditMode">
   <!-- inline style is temporary, don't worry temporary -->
   <p class="text-center"><em>Flash cards are very much in progress</em></p>
-  <p style="padding: 4px 16px;">Add a flash card set from flashcardexchange.com (pick one you like, go to the export link, and paste the address below).  At the moment it only works for certain types of sets (no multiline cards).  Try this one http://www.flashcardexchange.com/flashcards/export/845078</p>
+  <p style="padding: 4px 16px;">Add a flash card set from flashcardexchange.com (pick one you like, go to the export link, and paste the address below).  At the moment it only works for certain types of sets (no multiline cards).  Try this one 
+  <br />
+  http://www.flashcardexchange.com/flashcards/export/318848</p>
   <div ng-show="added" class="full-width-button med green-dark"> Added Set </div>
   <input type="url" placeholder="Must be a link from flashcardexchange.com" ng-model="url"/>
   <p class="text-center" ng-show="loading_set">
@@ -12,13 +14,13 @@
     Add Flash Cards
   </div>
 </div>
-<div class="row collapse" ng-show="!$parent.isEditMode && cards.length > 0">
+<div class="row collapse" ng-show="!$parent.isEditMode">
   <div class="flash-card front small-12 columns"
        ng-show="showing_side === 1"
     >
     <div class="inner">
       <div class="content">
-        {{card.steps[0].content}} 
+        {{card_score.card.steps[0].content}} 
       </div>
     </div>
   </div>
@@ -27,12 +29,12 @@
     >
     <div class="inner">
       <div class="content">
-        {{card.steps[1].content}} 
+        {{card_score.card.steps[1].content}} 
       </div>
     </div>
   </div>
 </div>
-<div class="row collapse" ng-show="!$parent.isEditMode && cards.length > 0">
+<div class="row collapse" ng-show="!$parent.isEditMode && card_scores.length > 0">
   <div class="small-4 columns">
     <a class="full-width-button med blue-dark"
        ng-click="flip()"

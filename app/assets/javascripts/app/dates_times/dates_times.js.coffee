@@ -128,31 +128,29 @@ angular.module('dates_times', ['resources.dates_times'])
           getRandomInt = (min, max)->
             return Math.floor(Math.random() * (max - min + 1)) + min
 
-
           $scope.wasAdded = ()->
             $timeout(()->
               $scope.added = false
             , 2000)
+
           DayByDate.get({year: $stateParams.year, month: $stateParams.month, day: $stateParams.day}, (data)->
-            console.log data
-            user = data.user
-            unless data.user.cards.length 
-              $scope.card = {}
-              $scope.card.steps = [{},{}]
-              $scope.card.steps[0].content = "Upload a flashcard set on the settings page" 
-              $scope.card.steps[1].content = "Upload a flashcard set on the settings page" 
+            $scope.user = data.user
+            unless data.user.card_scores.length > 0 
+              $scope.noCardsMsg("Upload a flashcard set on the settings page")
             else
-              $scope.cards = data.user.cards
-              $scope.num_cards = data.user.cards.length
-              $scope.rand = getRandomInt(0, $scope.num_cards - 1)
-              $scope.card = data.user.cards[$scope.rand]
-              UserCardScore.update_seen({user_id: user.id, card_id: $scope.cards[$scope.rand].id})
+              $scope.card_scores = data.user.card_scores
+              $scope.card_score = $scope.nextRandCard()
               return data
           )
 
           $scope.addCardSet = ()->
             $scope.loading_set = true
             CardSet.save({name: "Test", url: $scope.url}, (data)->
+              $scope.card_scores = []
+              for c in data
+                card_score = {id: c.id, card: c.card}
+                $scope.card_scores.push(card_score)
+              $scope.nextRandCard()
               $scope.added = true
               $scope.loading_set = false
               $scope.wasAdded()
@@ -163,26 +161,30 @@ angular.module('dates_times', ['resources.dates_times'])
             sides = [1,2]
             $scope.showing_side = sides[sides.length - $scope.showing_side]
 
+          $scope.noCardsMsg = (msg)->
+              $scope.card_score = {}
+              $scope.card_score.card = {}
+              $scope.card_score.card.steps = [{},{}]
+              $scope.card_score.card.steps[0].content = msg
+              $scope.card_score.card.steps[1].content = msg
+              $scope.card_score
+
           $scope.nextRandCard = ()->
-            $scope.rand = getRandomInt(0, $scope.cards.length - 1)
-            $scope.card = $scope.cards[$scope.rand]
-            console.log $scope.card
-            UserCardScore.update_seen({user_id: $scope.day.user.id, card_id: $scope.card.id}, (data)-> console.log data)
+            unless $scope.card_scores.length > 0 
+              $scope.noCardsMsg("Done for the day!")
+            else
+              $scope.rand = getRandomInt(0, $scope.card_scores.length - 1)
+              $scope.card_score = $scope.card_scores[$scope.rand]
+              UserCardScore.update_seen({user_id: $scope.user.id, card_id: $scope.card_score.card.id})
+            $scope.card_score
 
           $scope.got_it = ()->
-            UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card.id, score: "pass"}, (data)-> console.log data)
-            $scope.cards.splice($scope.rand, 1)
-            if $scope.cards.length == 0
-              $scope.card = {}
-              $scope.card.steps[0].content = "Done" 
-              $scope.card.steps[1].content = "Done" 
-              return false
+            UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card_score.card.id, score: "pass"})
+            $scope.card_scores.splice($scope.rand, 1)
             $scope.nextRandCard()
 
           $scope.muffed_it = ()->
-            UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card.id, score: "fail"}, (data)-> console.log data)
-            #probably don't remoce it
-            #$scope.cards.splice($scope.rand, 1)
+            UserCardScore.update_score({user_id: $scope.day.user.id, card_id: $scope.card_score.card.id, score: "fail"})
             $scope.nextRandCard()
 
         ]
