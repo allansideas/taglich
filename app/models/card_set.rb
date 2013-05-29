@@ -22,7 +22,7 @@ class CardSet < ActiveRecord::Base
     #end
     doc.get(self.url) do |page|
       page.search('textarea').text.split(/\n/).each do |line|
-        @card = Card.create()
+        @card = Card.new()
         line.split(/\t/).each do |step|
           @card.card_steps << CardStep.create(content: step)
         end
