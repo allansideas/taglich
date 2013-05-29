@@ -4,7 +4,6 @@ class CardSetsController < ApplicationController
 
     if @card_set.save
       @card_set.build_cards_for(current_user)
-      current_user.card_sets << @card_set
       render json: current_user.card_scores, root: false
     end
   end
