@@ -1,4 +1,9 @@
-#angular.module('metrics', ['resources.metrics'])
+angular.module('states.day')
+.controller("ActMetricsCtrl", ["$scope", "$state", "MetricScore", "DateUtilsService", ($scope, $state, MetricScore, DateUtilsService) ->
+  console.log "--ActMetricsCtrl--"
+  $scope.metric_scores = MetricScore.query(year: "2013", month:"05", day:"23")
+
+])
 
 #.controller("MetricScoreItemCtrl", ["$scope", "MetricScore", ($scope, MetricScore) ->
   ##$scope.metric_scores = MetricScore.query()

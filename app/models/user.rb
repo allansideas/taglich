@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :days
   has_many :metrics
+  has_many :metric_scores, through: :days
   has_many :user_card_scores, dependent: :destroy
   has_many :card_scores, :foreign_key => 'user_id', :class_name => "UserCardScore"
 end

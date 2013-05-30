@@ -3,12 +3,13 @@ angular.module('dates_times', ['resources.dates_times'])
 
 .config(['$stateProvider', '$routeProvider', '$urlRouterProvider', ($stateProvider, $routeProvider, $urlRouterProvider)->
   
-  #move to filter
-  normalizeDate = (date)->
-    date.replace(/\b(\d{1})\b/g, '0$1')
 
   getRandomInt = (min, max)->
     return Math.floor(Math.random() * (max - min + 1)) + min
+
+  #move to filter
+  normalizeDate = (date)->
+    date.replace(/\b(\d{1})\b/g, '0$1')
 
   getJSDateFromURLString = (date_string)->
     #Y/M/D -> [0] = Y, [1] = M, [2] = D
@@ -21,7 +22,7 @@ angular.module('dates_times', ['resources.dates_times'])
 
   #match server time
   date = new Date()
-  $urlRouterProvider.otherwise("/" + date.getFullYear() + "/" + normalizeDate((1 + date.getMonth()).toString()) + "/" + normalizeDate(date.getDate().toString()) )
+  #$urlRouterProvider.otherwise("/" + date.getFullYear() + "/" + normalizeDate((1 + date.getMonth()).toString()) + "/" + normalizeDate(date.getDate().toString()) )
 
   $stateProvider.state('day', 
     url: '/:year/:month/:day'

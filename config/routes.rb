@@ -6,9 +6,10 @@ Taglich::Application.routes.draw do
   match 'days/:year/:month/:day' => 'days#find_by_date'
   match 'fetch_german_remember' => 'remembers#fetch_german_remember'
 
+  match '/days/:year/:month/:day/metric_scores' => "metric_scores#index"
   resources :days do
-    collection do
-      get 'current_week'
+    member do
+      resources :metric_scores
     end
   end
 
@@ -23,6 +24,7 @@ Taglich::Application.routes.draw do
       end
     end
     collection do
+      get 'current'
       resources :card_scores do
         collection do
           delete 'delete_card_scores_by_set'
