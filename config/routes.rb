@@ -22,6 +22,13 @@ Taglich::Application.routes.draw do
         end
       end
     end
+    collection do
+      resources :card_scores do
+        collection do
+          delete 'delete_card_scores_by_set'
+        end
+      end
+    end
   end
 
   resources :card_sets

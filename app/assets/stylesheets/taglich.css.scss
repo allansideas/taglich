@@ -133,6 +133,9 @@ nav .date {
 }
 .full-width-button {
   display: block;
+  border-top: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
   &.blue-dark {
     @include button(emCalc(8px), $blue-med, 0, true, false, false);
     border-bottom: solid 4px lighten($blue-med, 11%);

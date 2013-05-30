@@ -7,6 +7,8 @@ angular.module('resources.flash_cards')
            method: 'POST', params: { verb: 'update_seen' }
          update_score: 
            method: 'POST', params: { verb: 'update_score' }
+         delete_card_scores_by_set: 
+           method: 'DELETE', params: { verb: 'delete_card_scores_by_set' }
        }
     )
   ])

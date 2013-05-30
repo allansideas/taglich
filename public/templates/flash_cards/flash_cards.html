@@ -4,14 +4,19 @@
   <p style="padding: 4px 16px;">Add a flash card set from flashcardexchange.com (pick one you like, go to the export link, and paste the address below).  At the moment it only works for certain types of sets (no multiline cards).  Try this one 
   <br />
   http://www.flashcardexchange.com/flashcards/export/318848</p>
-  <div ng-show="added" class="full-width-button med green-dark"> Added Set </div>
-  <input type="url" placeholder="Must be a link from flashcardexchange.com" ng-model="url"/>
-  <p class="text-center" ng-show="loading_set">
-    <img class="loading-gif" src="/assets/loader.gif" />
-    I still need to optimise sql big time
-  </p>
-  <div class="full-width-button med blue-dark" ng-click="addCardSet()">
-    Add Flash Cards
+  <form name="flash_card_import" ng-submit="addCardSet()">
+    <div ng-show="added" class="full-width-button med green-dark"> Added Set </div>
+    <input type="url" id="url" name="url" placeholder="Must be a link from flashcardexchange.com" ng-model="url" required/>
+    <p class="text-center" ng-show="loading_set">
+      <img class="loading-gif" src="/assets/loader.gif" />
+      I still need to optimise sql big time
+    </p>
+    <button type="submit" class="full-width-button med blue-dark">
+      Add Flash Cards
+    </button>
+  </form>
+  <div class="full-width-button med red-dark" ng-repeat="set in day.user.card_sets" ng-click="removeCardSet(set)">
+    Remove {{set.name}} from stack.
   </div>
 </div>
 <div class="row collapse" ng-show="!$parent.isEditMode">

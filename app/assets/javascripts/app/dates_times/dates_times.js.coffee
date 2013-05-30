@@ -154,6 +154,21 @@ angular.module('dates_times', ['resources.dates_times'])
               $scope.added = true
               $scope.loading_set = false
               $scope.wasAdded()
+              $scope.url = ""
+            )
+
+          $scope.removeCardSet = (set)->
+            set_index = ()->
+              for current_set, i in $scope.day.user.card_sets
+                current_set.id == set.id
+                console.log i if current_set.id == set.id
+            for c, index in $scope.card_scores
+              if c?
+                if c.card.card_set.id == set.id 
+                  $scope.card_scores.splice(index, 1)
+            $scope.noCardsMsg("Upload a flashcard set on the settings page")
+            $scope.day.user.card_sets.splice(set_index(), 1)
+            UserCardScore.delete_card_scores_by_set({id: set.id}, (data)->
             )
 
           $scope.showing_side = 1
