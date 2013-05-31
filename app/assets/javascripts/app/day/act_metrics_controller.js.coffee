@@ -1,8 +1,21 @@
-angular.module('states.day')
-.controller("ActMetricsCtrl", ["$scope", "$state", "MetricScore", "DateUtilsService", ($scope, $state, MetricScore, DateUtilsService) ->
+angular.module('states.day.metrics_controller', [])
+.controller("ActMetricsCtrl", ["$http", "$scope", "$state", "MetricScoreIDs", ($http, $scope, $state, MetricScoreIDs) ->
   console.log "--ActMetricsCtrl--"
-  $scope.metric_scores = MetricScore.query(year: "2013", month:"05", day:"23")
+  $scope.$parent.$watch('active_day', (new_val, old_val)->
+    if new_val != old_val
+      $http(
+        method: "GET"
+        url: "/days/"+$scope.$parent.active_day.id+"/metric_scores/only_ids"
+      ).success((data, status, headers, config) ->
+        $scope.metric_score_ids = data
+        #metric_score_ids = []
+        #for i in data
+          #metric_score_ids.push(i)
+        console.log $scope.metric_score_ids
+      )
 
+      #$scope.metric_scores = MetricScore.query(day_id: $scope.$parent.active_day.id)
+  )
 ])
 
 #.controller("MetricScoreItemCtrl", ["$scope", "MetricScore", ($scope, MetricScore) ->

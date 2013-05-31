@@ -1,9 +1,17 @@
 class MetricScoresController < ApplicationController
   def index
-    date = "#{params[:year]}-#{params[:month]}-#{params[:day]}"
-    @day = current_user.days.where(date: date).first
-    @metric_scores = @day.metric_scores.includes().order('metrics.sort_order ASC')
-    render json: @metric_scores
+    @metric_scores = current_user.metric_scores.where(day_id: params[:day_id])
+    render json: @metric_scores, root: false
+  end
+
+  def only_ids
+    @metric_score_ids = current_user.days.find(params[:day_id]).metric_score_ids
+    render json: @metric_score_ids.to_json
+  end
+
+  def show
+    @metric_score = MetricScore.find(params[:id])
+    render json: @metric_score, root: false
   end
 
   def update

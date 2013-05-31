@@ -2,40 +2,22 @@ app = angular.module("Taglich", [
   'ui.compat',
   'resources.user',
   'resources.metrics',
-  'services.user',
+  'resources.days',
+  #'services.user',
   'services.date_utils',
+  'services.ui_debounce',
   #'views.nav'
   'states.user',
   'states.day',
+  'states.day.flash_cards_controller',
+  'states.day.metrics_controller',
   #'dates_times',
-  #'resources.metrics',
   #'resources.flash_cards',
+  'directives.metric_score',
   'directives.ng_focus_blur',
   'directives.drag_drop',
   'directives.line_chart'
 ])
-.factory("uiDebounce", ["$timeout", "$q", ($timeout, $q) ->
-  (func, wait, immediate) ->
-    timeout = undefined
-    deferred = $q.defer()
-    return ()->
-      context = this
-      args = arguments
-      later = ->
-        timeout = null
-        unless immediate
-          deferred.resolve func.apply(context, args)
-          deferred = $q.defer()
-
-      callNow = immediate and not timeout
-      $timeout.cancel timeout  if timeout
-      timeout = $timeout(later, wait)
-      if callNow
-        deferred.resolve func.apply(context, args)
-        deferred = $q.defer()
-      deferred.promise
-])
-
 app.config(["$httpProvider", "$anchorScrollProvider", '$urlRouterProvider', ($httpProvider, $anchorScrollProvider, $urlRouterProvider)-> 
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $anchorScrollProvider.disableAutoScrolling()

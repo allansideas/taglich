@@ -1,4 +1,4 @@
-angular.module('states.day')
-.controller("ActFlashCardsCtrl", ["$scope", "$state", "MetricScore", "DateUtilsService", ($scope, $state, MetricScore, DateUtilsService) ->
+angular.module('states.day.flash_cards_controller', [])
+.controller("ActFlashCardsCtrl", ["$scope", "$state", ($scope, $state) ->
   console.log "--ActFlashCardsCtrl--"
 ])

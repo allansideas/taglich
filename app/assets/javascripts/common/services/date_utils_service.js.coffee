@@ -6,7 +6,7 @@ angular.module('services.date_utils',  [])
   dateToUrl: (date)->
     "/" + date.getFullYear() + "/" + normalizeDate((1 + date.getMonth()).toString()) + "/" + normalizeDate(date.getDate().toString()) 
 
-  dateFromURL: (date)->
+  dateFromURL: (date_striny)->
     #Y/M/D -> [0] = Y, [1] = M, [2] = D
     dateArry = date_string.split("/").splice(1,3)
     jsDate = new Date(dateArry[0], dateArry[1] - 1, dateArry[2])

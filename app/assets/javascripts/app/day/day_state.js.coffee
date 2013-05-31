@@ -1,7 +1,7 @@
 angular.module('states.day', [])
 .config(['$stateProvider', '$routeProvider', '$urlRouterProvider', ($stateProvider, $routeProvider, $urlRouterProvider)->
   $stateProvider.state('user.day',
-    url: "/days/"
+    url: "/days/:date"
     views: 
       'main':
         template: "
@@ -14,12 +14,18 @@ angular.module('states.day', [])
         template: 'flash'
         controller: 'ActFlashCardsCtrl'
       'act-metrics@user.day':
-        template: 'metrics'
+        template: '
+          <div ng-repeat="msId in metric_score_ids" ng-animate="{enter:\'fade-enter\'}">
+            <div metric-score ms-id="msId"></div>
+          </div>
+          '
         controller: 'ActMetricsCtrl'
   )
 ])
-.controller("DayCtrl", ["$scope", "$state", "User", ($scope, $state, User) ->
-  console.log "DayCtrl"
-  $scope.test = "Test"
+.controller("DayCtrl", ["$scope", "$stateParams", "DayByDate", 'DateUtilsService', ($scope, $stateParams, DayByDate, DateUtilsService) ->
+  console.log("--DayCtrl--( #{$stateParams.date} )")
+  DayByDate.get_by_date({date: $stateParams.date}, (data)->
+    $scope.active_day = data  
+  )
 ])
 

@@ -3,14 +3,14 @@ Taglich::Application.routes.draw do
 
   devise_for :users
 
-  match 'days/:year/:month/:day' => 'days#find_by_date'
   match 'fetch_german_remember' => 'remembers#fetch_german_remember'
 
-  match '/days/:year/:month/:day/metric_scores' => "metric_scores#index"
+  match '/days/:date/get_by_date' => "days#get_by_date"
+
+  match '/days/:day_id/metric_scores/only_ids' => "metric_scores#only_ids"
+
   resources :days do
-    member do
-      resources :metric_scores
-    end
+    resources :metric_scores
   end
 
   resources :users do
