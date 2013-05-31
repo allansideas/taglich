@@ -1,22 +1,20 @@
-<div class="row-item">
-  <div class="">
-    <label for="j-ms-score-{{ms.id}}" class="inline">{{ms.metric.name}}</label>
-  </div>
-  <div class="">
-    <small>
-      Beat
-      <br />
-    </small>
-      {{ms.last_8[ms.last_8.length - 2].score}}
-  </div>
-  <div class="">
-    <small>
-      Streak
-      <br />
-    </small>
-    {{ms.streak}}
-  </div>
-  <div class="">
-    <input id="j-ms-score-{{ms.id}}" type="number" ng-model="ms.score"/>
-  </div>
+<div class="">
+  <label for="j-ms-score-{{ms.id}}" class="inline">{{ms.name}}</label>
+</div>
+<div class="">
+  <small>
+    Beat
+    <br />
+  </small>
+    {{ms.last_8[ms.last_8.length - 2].score}}
+</div>
+<div class="">
+  <small>
+    Streak
+    <br />
+  </small>
+  {{ms.streak}}
+</div>
+<div class="actors">
+  <input id="j-ms-score-{{ms.id}}" type="number" ng-model="ms.score"/>
 </div>

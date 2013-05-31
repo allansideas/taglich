@@ -5,23 +5,26 @@ angular.module('directives.metric_score', [])
   templateUrl: '/templates/metrics/act_metric.html'
   link: (scope, element, attr, controller) ->
     console.log ("**Directive - MetricScore**")
-    scope.ms = MetricScore.get({id: scope.msId}, ()->)
-
+    id = scope.msId
+    scope.blank_val = false
+    scope.ms = MetricScore.get({id: id}, ()->)
 
     updateAfterWatch = ()->
-      console.log "twt"
-     #MetricScore.update({id: ms.id, score: ms.score}, (data)->
-         #metric = data.metric.sort_order - 1
-         #$scope.day.metric_scores[metric].streak = data.streak
-       #)
-      scope.ms = MetricScore.update({day_id: scope.$parent.active_day.id}, scope.ms)
+      if scope.ms.score == null
+        element.children('.actors').children('input').addClass('is-invalid')
+        return
+      else
+        element.children('.actors').children('input').removeClass('is-invalid')
+        scope.ms = MetricScore.update(scope.ms)
 
-      
-
-    debouncedUpdateMS = uiDebounce(updateAfterWatch, 300, false)
+    debouncedUpdateMS = uiDebounce(updateAfterWatch, 500, false)
 
     scope.$watch('ms.score', (new_val, old_val)->
       if ((new_val != old_val) && old_val != undefined)
-        debouncedUpdateMS()
+        if new_val == null
+          element.children('.actors').children('input').addClass('is-invalid')
+        else
+          element.children('.actors').children('input').removeClass('is-invalid')
+          debouncedUpdateMS()
     , true)
 ])

@@ -15,9 +15,10 @@ angular.module('states.day', [])
         controller: 'ActFlashCardsCtrl'
       'act-metrics@user.day':
         template: '
-          <div ng-repeat="msId in metric_score_ids" ng-animate="{enter:\'fade-enter\'}">
-            <div metric-score ms-id="msId"></div>
-          </div>
+          <div flash-card fc-id="42"></div>
+          <ul ng-repeat="msId in metric_score_ids" ng-animate="{enter:\'fade-enter\'}">
+            <li metric-score ms-id="msId"></li>
+          </ul>
           '
         controller: 'ActMetricsCtrl'
   )
