@@ -14,25 +14,17 @@ Taglich::Application.routes.draw do
   end
 
   resources :users do
-    resources :metrics
-    member do
-      resources :card_scores do
-        member do
-          post 'update_score'
-          post 'update_seen'
-        end
-      end
-    end
-    collection do
-      get 'current'
-      resources :card_scores do
-        collection do
-          delete 'delete_card_scores_by_set'
-        end
-      end
-    end
   end
 
+  resources :cards do
+    collection do
+      get 'only_ids'
+    end
+    member do
+      put 'update_seen'
+      put 'update_score'
+    end
+  end
   resources :card_sets
 
   resources :metrics do

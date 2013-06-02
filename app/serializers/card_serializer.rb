@@ -1,5 +1,3 @@
 class CardSerializer < ActiveModel::Serializer
-  attributes :id, :steps
-  has_many :steps
-  has_one :card_set
+  attributes :id, :front, :back, :correct_count, :incorrect_count, :last_seen_at
 end

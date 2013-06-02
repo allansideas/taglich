@@ -324,3 +324,16 @@ nav .date {
 }
 
 @import "animations";
+
+
+.card {
+  display: none;
+}
+.card.is-visible {
+  display: block;
+}
+
+.card-flickr-img {
+  height: 150px;
+  overflow: hidden
+}

@@ -6,16 +6,26 @@ angular.module('states.day', [])
       'main':
         template: "
           Day
-          <div ui-view='act-metrics'></div>
           <div ui-view='act-flash-cards'></div>
+          <div ui-view='act-metrics'></div>
           "
         controller: 'DayCtrl'
       'act-flash-cards@user.day':
-        template: 'flash'
+        template: '
+          <div flash-cards >
+            <div flash-card 
+              ng-repeat="cId in cards.card_ids"
+              c-id="cId" 
+              class="card"
+              ng-class="{\'is-visible\': $index === selected_index}" 
+              ng-animate="{enter:\'fade-enter\'}"
+              >
+              </div>  
+          </div>
+          '
         controller: 'ActFlashCardsCtrl'
       'act-metrics@user.day':
         template: '
-          <div flash-card fc-id="42"></div>
           <ul ng-repeat="msId in metric_score_ids" ng-animate="{enter:\'fade-enter\'}">
             <li metric-score ms-id="msId"></li>
           </ul>

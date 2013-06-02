@@ -11,19 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531223030) do
+ActiveRecord::Schema.define(:version => 20130601100733) do
 
   create_table "card_sets", :force => true do |t|
     t.string   "name"
     t.string   "url"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "cards", :force => true do |t|
     t.integer  "card_set_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.text     "front"
+    t.text     "back"
     t.integer  "seen_times"
     t.integer  "correct_count"
     t.integer  "incorrect_count"

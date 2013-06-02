@@ -2,6 +2,7 @@ require 'mechanize'
 class CardSet < ActiveRecord::Base
   attr_accessible :name, :url
   has_many :cards, dependent: :destroy
+  belongs_to :user
 
   def build_cards_for(user)
     doc = Mechanize.new { |agent|
