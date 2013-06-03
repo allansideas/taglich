@@ -47,7 +47,8 @@ angular.module('directives.flash_card', [])
 
 
     scope.incorrect = ()->
-      if scope.card_ids.length
+      scope.cards.last_incorrect = scope.card.id
+      if scope.cards.card_ids.length
         FlashCard.update_score({id: scope.cards.card_ids[scope.selected_index], score: "incorrect"})
         scope.next()
 ])

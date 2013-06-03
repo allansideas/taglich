@@ -61,13 +61,11 @@
       </div>
     </div>
   </section>
-  <section class="flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>
-  <section class="metrics row" ui-view="metrics" ></section>
-  <div class="row">
-    <div class="row collapse">
-      <div class="small-3 columns right" ng-show="day.metric_scores.length > 0" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
+  <section class="l-widget flash-cards row" ui-view="flash_cards" ng-animate="{enter:'fade-enter'}"></section>
+  <section class="l-widget metrics row" ui-view="metrics" ></section>
+  <section class="l-footer">
+      <div class="" ng-show="day.metric_scores.length > 0" ng-animate="{enter:'fade-enter', leave: 'fade-leave'}">
         <a class="right full-width-button med gray-darkish button-text-icon selected" href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a>
       </div>
-    </div>
-  </div>
+  </section>
 </div>

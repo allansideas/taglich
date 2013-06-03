@@ -9,9 +9,9 @@ angular.module('directives.flash_cards', [])
       method: "GET"
       url: "/cards/only_ids"
     ).success((data, status, headers, config) ->
-
       scope.cards = {}
       scope.cards.card_ids = data
+      scope.cards.last_incorrect = undefined
       #Maybe move this to rootscope so when switching between settings...etc the right card will be displayed
       #Also need to consider that maybe it would get updated when its shown then when the state changes back
       rand = ()->
@@ -22,6 +22,8 @@ angular.module('directives.flash_cards', [])
       #Consider making this random, problem is maybe need hold array in here/rootscope so that it knows which ones remain.
       scope.next = ()->
         scope.selected_index = rand()
+        while scope.cards.card_ids[scope.selected_index] == scope.cards.last_incorrect
+          scope.selected_index = rand()
         if scope.cards.card_ids.length != 0
           FlashCard.update_seen({id: scope.cards.card_ids[scope.selected_index]})
 

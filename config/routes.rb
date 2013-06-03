@@ -14,6 +14,9 @@ Taglich::Application.routes.draw do
   end
 
   resources :users do
+    collection do 
+      get 'current'
+    end
   end
 
   resources :cards do
