@@ -1,0 +1,42 @@
+@import 'globals/all';
+@import 'addons/html5-input-types';
+@import 'functions/tint-shade';
+
+body {
+  background: $body-bg;
+
+  font-family: "Rambla", sans-serif;
+  font-size: $base-font-size;
+  color: $body-font-color;
+}
+
+small {
+  font-size: 70%;
+}
+
+textarea {
+  background: $gray-med-dark;
+  color: $body-font-color;
+  border-color: transparent;
+  outline: none;
+  padding: emCalc(6px);
+}
+
+.x-small-heading {
+  font-size: emCalc(12px);
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+#{$all-text-inputs} {
+  background: $gray-med-dark;
+  color: $body-font-color;
+  border-color: transparent;
+  outline: none;
+  padding: emCalc(6px);
+  border-top: solid 1px shade($gray-med-dark, 15%);
+  border-left: solid 1px shade($gray-med-dark, 15%);
+}
+
+@import 'imports'

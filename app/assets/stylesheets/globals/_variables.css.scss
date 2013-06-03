@@ -1,0 +1,31 @@
+$base-font-size: 105% !default;
+$em-base: 16px !default;
+
+// Working in ems is annoying. Think in pixels by using this handy function, emCalc(#px)
+@function emCalc($pxWidth) {
+  @return $pxWidth / $em-base * 1em;
+}
+
+$body-bg: #131314;
+$body-font-color: #E9E9F2;
+
+$primary-color: #2ba6cb;
+$secondary-color: #e9e9e9;
+$alert-color: #c60f13;
+$success-color: #5da423;
+
+$blue-light: #B4D0D6; 
+$blue-med: #45557A; 
+$gray-darkish: #2C2E2E;
+$gray-med-dark: #222;
+$green-dark: #284D24;
+$orange-dark: darken(#B24700, 5%);
+$red-dark: #750C0C;
+
+$header-font-family: "Rambla", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: normal;
+$header-font-style: italic;
+$header-font-color: $body-font-color;
+
+$h1-font-size: emCalc(37px);
+$h2-font-size: emCalc(27px);

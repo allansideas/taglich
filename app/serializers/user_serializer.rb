@@ -1,6 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email
+  attributes :id, :email, :first_day_created
   #has_many :user_card_scores, key: :card_scores
+
+  def first_day_created
+    object.days.first.date
+  end
 
 
   #def attributes

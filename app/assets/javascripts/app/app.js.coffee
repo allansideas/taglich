@@ -27,7 +27,7 @@ app.config(["$httpProvider", "$anchorScrollProvider", '$urlRouterProvider', ($ht
   date = new Date()
   normalizeDate = (date)->
     date.replace(/\b(\d{1})\b/g, '0$1')
-  $urlRouterProvider.otherwise("/days/" + date.getFullYear() + "/" + normalizeDate((1 + date.getMonth()).toString()) + "/" + normalizeDate(date.getDate().toString()) )
+  $urlRouterProvider.otherwise("/days/" + date.getFullYear() + "-" + normalizeDate((1 + date.getMonth()).toString()) + "-" + normalizeDate(date.getDate().toString()) )
 ])
 
 #['$stateProvider', '$routeProvider', '$urlRouterProvider', ($stateProvider, $routeProvider, $urlRouterProvider)->

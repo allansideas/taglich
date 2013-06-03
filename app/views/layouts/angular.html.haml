@@ -14,8 +14,6 @@
       document.cookie = 'jstz_time_zone='+timeZone.name()+';';
 
   %body{"ng-app" => "Taglich"}
-    .container
-      .row
-        .large-6.large-offset-3.columns.wrapper
-          = yield 
+    .l-container
+      = yield 
 

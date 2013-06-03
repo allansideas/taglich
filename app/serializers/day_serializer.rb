@@ -9,7 +9,4 @@ class DaySerializer < ActiveModel::Serializer
     #object.date.strftime("%a #{object.date.day.ordinalize}")
   #end
 
-  #def first_day_created
-    #object.user.days.first.date == object.date
-  #end
 end

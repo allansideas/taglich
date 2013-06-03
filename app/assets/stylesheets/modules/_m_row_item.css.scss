@@ -1,0 +1,44 @@
+.m-row-i {
+  @include clearfix;
+  background: $gray-darkish;
+  padding: emCalc(8px);
+  margin-bottom: emCalc(7px);
+  border-bottom: solid 4px tint($gray-darkish, 8%);
+}
+
+.m-row-i-label {
+  float: left;
+  font-weight: bold;
+  padding: emCalc(9px);
+  margin: 0;
+  cursor: default;
+}
+
+.m-row-i-input {
+  margin: 0;
+  font-size: emCalc(18px);
+  height: emCalc(35px);
+  float: right;
+}
+
+.m-row-i-input-narrow {
+  @extend .m-row-i-input;
+  width: emCalc(60px);
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+//States
+.is-neutral-row {
+  border-bottom-color: tint($gray-darkish, 8%);
+}
+
+.is-positive-row {
+  border-bottom-color: $green-dark;
+}
+
+.is-okay-row {
+  border-bottom-color: $orange-dark;
+}
+

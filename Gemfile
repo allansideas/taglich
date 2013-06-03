@@ -26,9 +26,10 @@ gem 'mechanize'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'normalize-rails'
+  gem 'bourbon'
+  gem 'neat'
   gem 'sass-rails',   '~> 3.2.3'
-  gem 'zurb-foundation'
-  #gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'execjs',              '~> 1.4.0'
 
@@ -37,6 +38,9 @@ group :assets do
 end
 
 group :development do
+  gem 'guard-livereload', require: false
+  gem 'rack-livereload'
+  gem 'rb-fsevent',       require: false
   gem 'rb-readline'
   # Better documentation
   gem 'tomdoc',  '~> 0.2.5',  :require => false
@@ -62,11 +66,9 @@ end
 group :development, :test do
   # Automatic testing
   gem 'rb-inotify',        '~> 0.8.8'
-  gem 'guard',             '~> 1.6.2'
   gem 'guard-spork',       '~> 1.4.1'
   gem 'guard-rspec',       '~> 2.3.3'
   gem 'guard-sass',        '~> 1.0.1', :require => false
-  gem 'guard-livereload',  '~> 1.1.3'
 
   # Placed here so generators work
   gem 'rspec-rails',  '~> 2.12.2'

@@ -5,6 +5,7 @@ angular.module('directives.flash_cards', [])
   link: (scope, element, attr, controller) ->
     console.log ("**Directive - FlashCards**") 
     scope.wrapper_el = element
+
     $http(
       method: "GET"
       url: "/cards/only_ids"
@@ -19,7 +20,6 @@ angular.module('directives.flash_cards', [])
       scope.selected_index = rand()
       FlashCard.update_seen({id: scope.cards.card_ids[scope.selected_index]})
 
-      #Consider making this random, problem is maybe need hold array in here/rootscope so that it knows which ones remain.
       scope.next = ()->
         scope.selected_index = rand()
         while scope.cards.card_ids[scope.selected_index] == scope.cards.last_incorrect

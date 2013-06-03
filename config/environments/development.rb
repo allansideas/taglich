@@ -41,4 +41,7 @@ Taglich::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+    # Automatically inject JavaScript needed for LiveReload
+  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
 end

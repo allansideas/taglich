@@ -3,18 +3,18 @@ angular.module('directives.flash_card', [])
   restrict: "A"
   require: "?ngModel, FlickrImageSearchService"
   template: "
-    <div class='card-flickr-img'></div>
-    <div class='card-front' ng-show='face === 0'>{{card.front}}</div>
-    <div class='card-back' ng-show='face === 1' >{{card.back}}</div>
-    <div>
-      <div>
-        <a ng-click='flip()'>Flip it</a>
+    <div class='m-fl-cd-flickr-img'></div>
+    <div class='m-fl-cd-front' ng-show='face === 0'>{{card.front}}</div>
+    <div class='m-fl-cd-back' ng-show='face === 1' >{{card.back}}</div>
+    <div class='l-row'>
+      <div class='btn-neutral g-third' ng-click='flip()'>
+        Flip it
       </div>
-      <div>
-        <a ng-click='correct()'>Got it</a>
+      <div class='btn-positive g-third' ng-click='correct()'>
+        Got it
       </div>
-      <div>
-        <a ng-click='incorrect()'>Sheeeeeit</a>
+      <div class='btn-negative g-third' ng-click='incorrect()'>
+        Sheeeeeit
       </div>
     </div>
     "
@@ -29,7 +29,7 @@ angular.module('directives.flash_card', [])
         rand = Math.floor(Math.random() * (images_in_array - 1))
         scope.images = data[0]
         scope.image = scope.images[rand]
-        element.children('.card-flickr-img').append('<img src="' + scope.image.src + '"/>')
+        element.children('.m-fl-cd-flickr-img').css('background-image', "url(#{scope.image.src})")
       )
     )
 

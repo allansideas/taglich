@@ -1,20 +1,32 @@
-<div class="">
-  <label for="j-ms-score-{{ms.id}}" class="inline">{{ms.name}}</label>
+<label for="j-ms-score-{{ms.id}}" class="m-row-i-label">{{ms.name}}</label>
+
+<input 
+  class="m-row-i-input-narrow js-in-num" 
+  id="j-ms-score-{{ms.id}}" 
+  type="number" 
+  ng-model="ms.score"
+  ng-show="ms.score_type !== 'boolean'"
+  />
+
+<div 
+  class="btn-positive btn-icon m-row-i-input-narrow {{ms.score===0 && 'is-opaque' || ''}}" 
+  ng-show="ms.score_type === 'boolean'"
+  ng-click="ms.score = 1 - ms.score"
+  >
+  <i class="foundicon-checkmark" ></i>
 </div>
-<div class="">
-  <small>
-    Beat
-    <br />
-  </small>
+
+<div 
+  ng-show="ms.score_type !== 'boolean'"
+  class="m-row-i--ms-motivator"
+  >
+    <h4 class="x-small-heading">Beat</h4>
     {{ms.last_8[ms.last_8.length - 2].score}}
 </div>
-<div class="">
-  <small>
-    Streak
-    <br />
-  </small>
+<div 
+  ng-show="ms.score_type === 'boolean'"
+  class="m-row-i--ms-motivator"
+  >
+  <h4 class="x-small-heading">Streak</h4>
   {{ms.streak}}
-</div>
-<div class="actors">
-  <input id="j-ms-score-{{ms.id}}" type="number" ng-model="ms.score"/>
 </div>

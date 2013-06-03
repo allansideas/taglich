@@ -1,0 +1,26 @@
+.m-fl-cd {
+  display: none;
+}
+
+//extend
+.cd-body {
+ padding: 20px;
+ font-weight: bold;
+ text-align: center;
+}
+
+.m-fl-cd-flickr-img {
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.m-fl-cd-front {
+  @extend .cd-body;
+  background: $gray-darkish;
+}
+
+.m-fl-cd-back {
+  @extend .cd-body; 
+  background: $gray-med-dark;
+}

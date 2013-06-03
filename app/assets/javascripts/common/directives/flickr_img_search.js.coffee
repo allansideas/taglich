@@ -19,7 +19,7 @@ angular.module('services.flickr_image_search', [])
       photos = _.map data.photos.photo, (photo) ->
         title: photo.title
         thumb_src: "http://farm#{photo.farm}.staticflickr.com/#{photo.server}/#{photo.id}_#{photo.secret}_s.jpg"
-        src: "http://farm#{photo.farm}.staticflickr.com/#{photo.server}/#{photo.id}_#{photo.secret}_m.jpg"
+        src: "http://farm#{photo.farm}.staticflickr.com/#{photo.server}/#{photo.id}_#{photo.secret}_-.jpg"
 
       deferred.resolve [photos]
 
