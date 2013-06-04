@@ -1,7 +1,11 @@
 @mixin btn($bg-color) {
-  padding: emCalc(8px);
+  color: $body-font-color;
+  height: $standard-height;
+  line-height: emCalc(36px);
+  padding: 0 emCalc(10px);
+  text-decoration: none;
   text-align: center;
-  font-size: emCalc(18px);
+  font-size: emCalc(20px);
   font-weight: bold;
   background: $bg-color;
   border-left: solid 1px tint($bg-color, 4%);
@@ -9,8 +13,8 @@
   border-bottom: solid 4px tint($bg-color, 8%);
   text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
   &.btn-is-selected {
-    background: shade($bg-color, 8%);
-    border-bottom: solid 4px tint($bg-color, 6%);
+    background: shade($bg-color, 30%);
+    border-bottom: solid 4px shade($bg-color, 10%);
   }
   &:hover {
     cursor: pointer;
@@ -22,19 +26,29 @@
   }
 }
 
-.btn-icon {
- i {
-   margin-top: -3px;
-   display: inline-block;
- }
+a.btn {
+  display: inline-block;
+}
+
+.btn.btn-nav {
+  display: block;
+  padding: 0 emCalc(18px);
+}
+
+.btn-boring {
+  @include btn($gray-darkish);
+}
+
+.btn-boring-darker {
+  @include btn(shade($gray-darkish, 20%));
 }
 
 .btn-neutral {
-  @include btn($blue-med)
+  @include btn($blue-med);
 }
 
 .btn-positive {
-  @include btn($green-dark)
+  @include btn($green-dark);
 }
 
 .btn-negative {

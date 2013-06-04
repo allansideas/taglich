@@ -1,7 +1,9 @@
+<div style="position: relative; z-index: 1;">
 <label for="j-ms-score-{{ms.id}}" class="m-row-i-label">{{ms.name}}</label>
 
 <input 
-  class="m-row-i-input-narrow js-in-num" 
+  style="opacity: 0.9"
+  class="m-row-i-input-narrow l-f-right js-in-num" 
   id="j-ms-score-{{ms.id}}" 
   type="number" 
   ng-model="ms.score"
@@ -9,7 +11,7 @@
   />
 
 <div 
-  class="btn-positive btn-icon m-row-i-input-narrow {{ms.score===0 && 'is-opaque' || ''}}" 
+  class="btn btn-positive m-row-i-input-narrow l-f-right {{ms.score===0 && 'is-opaque' || ''}}" 
   ng-show="ms.score_type === 'boolean'"
   ng-click="ms.score = 1 - ms.score"
   >
@@ -29,4 +31,31 @@
   >
   <h4 class="x-small-heading">Streak</h4>
   {{ms.streak}}
+</div>
+</div>
+<div line-chart class="metric_score_graph" style="opacity:0.6; height: 35px; width: 80%;"
+  ng-model="ms" 
+  flt-Linechartoptions="
+    {
+    HtmlText: true,
+    colors: ['#3c3e3e'],
+    grid: {
+      outline: '',
+      verticalLines: false,
+      horizontalLines: false,
+      tickColor: '2c2e2e'
+    },
+    xaxis: {
+      showLabels: false,
+      mode: 'time',
+      timeUnit: 'second',
+      labelsAngle: 45
+    },
+    yaxis: {
+      showLabels: false,
+      min: 0
+    },
+    title: ms.metric.name
+    }
+    " >
 </div>

@@ -1,4 +1,13 @@
 class CardsController < ApplicationController
+  def index
+    @cards = []
+    current_user.card_sets.each do |cs|
+      puts cs
+      cs.cards.map {|c| @cards << c}
+    end
+    render json: @cards, root:false
+  end
+
   def show
     @card = Card.find(params[:id])
     render json: @card, root:false

@@ -1,11 +1,8 @@
 angular.module('resources.metrics', ['ngResource'])
 
-.factory("MetricScore", ["$resource", ($resource) ->
-  $resource("days/:day_id/metric_scores/:id/", 
-    {day_id: "@day_id", id: "@id"}, 
-    {
-      update: {method: "PUT"}
-    }
+.factory("MetricScoresByDay", ["$resource", ($resource) ->
+  $resource("days/:day_id/metric_scores", 
+    {day_id: "@day_id"}, 
   )
 ])
 
@@ -21,6 +18,15 @@ angular.module('resources.metrics', ['ngResource'])
 .factory("MetricScoreIDs", ["$resource", ($resource) ->
   $resource("days/:day_id/metric_scores/only_ids/", 
     {day_id: "@day_id"}, 
+  )
+])
+
+.factory("Metrics", ["$resource", ($resource) ->
+  $resource("/metrics/:id/", 
+    { id: "@id" }, 
+    {
+    sort: {method: 'POST'}, update: {method: "PUT"}
+    }
   )
 ])
 

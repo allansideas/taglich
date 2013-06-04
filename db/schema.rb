@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601100733) do
+ActiveRecord::Schema.define(:version => 20130604125733) do
 
   create_table "card_sets", :force => true do |t|
     t.string   "name"
@@ -59,11 +59,12 @@ ActiveRecord::Schema.define(:version => 20130601100733) do
   create_table "metrics", :force => true do |t|
     t.string   "name"
     t.string   "score_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "user_id"
     t.integer  "sort_order"
     t.string   "state"
+    t.datetime "deactivated_on"
   end
 
   add_index "metrics", ["user_id"], :name => "index_metrics_on_user_id"

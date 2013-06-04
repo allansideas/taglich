@@ -1,6 +1,6 @@
 class MetricsController < ApplicationController
   def index
-    @metrics = current_user.metrics
+    @metrics = current_user.metrics.active
     render json: @metrics
   end
 

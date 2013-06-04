@@ -5,10 +5,6 @@ angular.module('directives.metric_score', [])
   templateUrl: '/templates/metrics/act_metric.html'
   link: (scope, element, attr, controller) ->
     console.log ("**Directive - MetricScore**")
-    id = scope.msId
-    scope.ms = MetricScore.get({id: id}, (ms)->
-      setRowStatus(ms)
-    )
 
     validateNumberInput = ()->
       if scope.ms.score == null
@@ -34,6 +30,8 @@ angular.module('directives.metric_score', [])
           scope.ms.status_class = "is-positive-row"
         if score > 0 && score < last_score && !is_bool
           scope.ms.status_class = "is-okay-row"
+
+    setRowStatus(scope.ms)
 
     updateAfterWatch = ()->
       validateNumberInput()

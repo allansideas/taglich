@@ -7,6 +7,27 @@ html {
        overflow-y: scroll;
 }
 
+nav {
+  a, span {
+    float: left;
+  }
+  span {
+    display: block;
+    height: $standard-height;
+    padding: 0 emCalc(10px);
+    font-size: emCalc(20px);
+    line-height: $standard-height;
+  }
+}
+
+.l-f-right {
+  float: right;
+}
+
+.l-f-left {
+  float: left;
+}
+
 .l-ul-unstyled {
   margin: 0;
   padding: 0;
@@ -29,7 +50,7 @@ html {
   @include clearfix;
 }
 
-.l-widget {
+.l-widget, nav {
   margin-bottom: emCalc(16px);
 }
 

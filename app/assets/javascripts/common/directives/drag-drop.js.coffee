@@ -9,18 +9,20 @@ angular.module('directives.drag_drop', [])
     # watch the model, so we always know what element
     # is at a specific position
     scope.$watch attrs.dndList, ((value) ->
-      toUpdate = value
+      toUpdate = []
+      for v in value
+        toUpdate.push(v.id)
     ), true
     
     # use jquery to make the element sortable (dnd). This is called
     # when the element is rendered
     $(element[0]).sortable
-      items: ".metric"
-      handle: ".move-button"
+      items: ".m-row-i"
+      handle: ".js-move-button"
       placeholder: "ui-state-highlight"
       opacity: 0.8
       update: ->
-        scope.sort($(element[0]).sortable('serialize'))
+        scope.sort(toUpdate)
       start: (event, ui) ->
         # on start we define where the item is dragged from
         startIndex = ($(ui.item).index())
@@ -33,9 +35,10 @@ angular.module('directives.drag_drop', [])
         toMove = toUpdate[startIndex]
         toUpdate.splice startIndex, 1
         toUpdate.splice newIndex, 0, toMove
+        console.log toUpdate
         
         # we move items in the array, if we want
         # to trigger an update in angular use $apply()
         # since we're outside angulars lifecycle
-        scope.$apply scope.day.metric_scores
+        scope.$apply scope.metrics
       axis: "y"

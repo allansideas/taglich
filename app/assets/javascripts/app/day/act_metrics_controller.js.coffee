@@ -1,18 +1,18 @@
 angular.module('states.day.metrics_controller', [])
-.controller("ActMetricsCtrl", ["$http", "$scope", "$state", "MetricScoreIDs", ($http, $scope, $state, MetricScoreIDs) ->
+.controller("ActMetricsCtrl", ["$http", "$scope", "$state", "MetricScoreIDs", "MetricScoresByDay", ($http, $scope, $state, MetricScoreIDs, MetricScoresByDay) ->
   console.log "--ActMetricsCtrl--"
   $scope.$parent.$watch('active_day', (new_val, old_val)->
     if new_val != old_val
-      $http(
-        method: "GET"
-        url: "/days/"+$scope.$parent.active_day.id+"/metric_scores/only_ids"
-      ).success((data, status, headers, config) ->
-        $scope.metric_score_ids = data
-        #metric_score_ids = []
-        #for i in data
-          #metric_score_ids.push(i)
-        console.log $scope.metric_score_ids
-      )
+      $scope.metric_scores = MetricScoresByDay.query(day_id: $scope.$parent.active_day.id)
+      #$http(
+        #method: "GET"
+        #url: "/days/"+$scope.$parent.active_day.id+"/metric_scores/only_ids"
+      #).success((data, status, headers, config) ->
+        #$scope.metric_score_ids = data
+        ##metric_score_ids = []
+        ##for i in data
+          ##metric_score_ids.push(i)
+      #)
 
       #$scope.metric_scores = MetricScore.query(day_id: $scope.$parent.active_day.id)
   )

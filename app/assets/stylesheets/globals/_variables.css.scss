@@ -6,6 +6,8 @@ $em-base: 16px !default;
   @return $pxWidth / $em-base * 1em;
 }
 
+$standard-height: emCalc(35px);
+
 $body-bg: #131314;
 $body-font-color: #E9E9F2;
 
