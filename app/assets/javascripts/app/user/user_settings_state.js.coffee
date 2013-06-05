@@ -11,19 +11,12 @@ angular.module('states.user.settings', [])
         controller: 'UserSettingsCtrl'
       'settings-flash-cards@user.settings':
         template: '
-            set flash
+            <div settings-flash-cards>
+            </div>
           '
         controller: 'SettingsFlashCardsCtrl'
       'settings-metrics@user.settings':
-        template: '
-          <ul dnd-list="metrics" class="m-metrics l-ul-unstyled">
-            <li metric 
-              ng-repeat="metric in metrics"
-              class="m-row-i"
-            >
-            </li>
-          </ul>
-          '
+        templateUrl: 'templates/metrics/settings_metrics.html'
         controller: 'SettingsMetricsCtrl'
   )
 ])
@@ -33,7 +26,22 @@ angular.module('states.user.settings', [])
 ])
 .controller("SettingsFlashCardsCtrl", [()->
 ])
-.controller("SettingsMetricsCtrl", ["$scope", "Metric", "MetricSorter", ($scope, Metric, MetricSorter)->
+.controller("SettingsMetricsCtrl", ["$scope", "Metric", "MetricSorter", "MetricScore", ($scope, Metric, MetricSorter, MetricScore)->
+  $scope.is_adding = false
+  $scope.n_metric = {}
+  $scope.cancel = ()->
+    $scope.n_metric = {}
+    $scope.is_adding = false
+  $scope.save = ()->
+    $scope.n_metric.state = 'active'
+    console.log $scope.current_user
+    Metric.save({user_id: $scope.current_user.id}, $scope.n_metric, (data)->
+      MetricScore.save({metric_id: data.id, day_id: $scope.current_user.last_day_created.id}, (data)->
+        $scope.is_adding = false
+        $scope.metrics.unshift(data)
+        $scope.n_metric = {}
+      )
+    )
   $scope.metrics = Metric.query()
   $scope.sort = (params)->
     MetricSorter.sort(metrics: params)

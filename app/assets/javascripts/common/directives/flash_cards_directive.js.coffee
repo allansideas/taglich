@@ -7,9 +7,6 @@ angular.module('directives.flash_cards', [])
 
     scope.wrapper_el = element
     FlashCard.query((data)->
-      console.log data
-      
-      scope.cards = {}
       scope.cards = data
       scope.cards.last_incorrect = undefined
       #Maybe move this to rootscope so when switching between settings...etc the right card will be displayed

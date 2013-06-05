@@ -1,11 +1,11 @@
 @mixin btn($bg-color) {
   color: $body-font-color;
   height: $standard-height;
-  line-height: emCalc(36px);
+  line-height: emCalc(34px);
   padding: 0 emCalc(10px);
   text-decoration: none;
   text-align: center;
-  font-size: emCalc(20px);
+  font-size: emCalc(18px);
   font-weight: bold;
   background: $bg-color;
   border-left: solid 1px tint($bg-color, 4%);
@@ -26,15 +26,6 @@
   }
 }
 
-a.btn {
-  display: inline-block;
-}
-
-.btn.btn-nav {
-  display: block;
-  padding: 0 emCalc(18px);
-}
-
 .btn-boring {
   @include btn($gray-darkish);
 }
@@ -53,4 +44,23 @@ a.btn {
 
 .btn-negative {
   @include btn($red-dark)
+}
+
+a.btn {
+  display: inline-block;
+}
+
+.btn.btn-nav {
+  display: block;
+  padding: 0 emCalc(18px);
+}
+
+.btn-icon-text {
+  line-height: emCalc(32px);
+  i {
+    font-size: 0.7em;
+  }
+  span {
+    display: inline-block;
+  }
 }

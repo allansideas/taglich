@@ -1,4 +1,8 @@
 class CardSetsController < ApplicationController
+  def index
+    @card_sets = current_user.card_sets
+    render json: @card_sets, root: false
+  end
   def create
     @card_set = CardSet.new(params[:card_set])
 

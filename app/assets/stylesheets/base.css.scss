@@ -13,7 +13,10 @@ body {
 small {
   font-size: 70%;
 }
-
+input[type=text] {
+  height: $standard-height;
+  width: 100%;
+}
 textarea {
   background: $gray-med-dark;
   color: $body-font-color;
@@ -34,6 +37,7 @@ textarea {
   color: $body-font-color;
   border-color: transparent;
   outline: none;
+  font-size: emCalc(18px);
   padding: emCalc(6px);
   border-top: solid 1px shade($gray-med-dark, 15%);
   border-left: solid 1px shade($gray-med-dark, 15%);

@@ -1,0 +1,53 @@
+<div class="btn btn-positive btn-icon-text l-row" ng-click="is_adding = true" ng-show="!is_adding">
+  <i class="foundicon-plus"></i> 
+  <span>New metric</span>
+</div>
+<div ng-show="is_adding != false"> 
+  <section class="m-box m-box-padded m-box-boring l-widget">
+    <form>  
+      <input 
+        class="l-row"
+        type="text" 
+        ng-model="n_metric.name" 
+        placeholder="Metric name" 
+        />
+      <div class="l-row">
+        <div class="btn btn-neutral g-third" 
+          ng-class="{'btn-is-selected': n_metric.score_type == 'small_number'}" 
+          ng-model="n_metric.score_type" 
+          ng-click="n_metric.score_type = 'small_number'"
+          >
+          Small no.
+        </div>
+        <div class="btn btn-neutral g-third" 
+          ng-class="{'btn-is-selected': n_metric.score_type == 'big_number'}" 
+          ng-model="n_metric.score_type"
+          ng-click="n_metric.score_type = 'big_number'"
+          >
+          Big no.
+        </div>
+        <div class="btn btn-neutral g-third" 
+          ng-class="{'btn-is-selected': n_metric.score_type == 'boolean'}" 
+          ng-model="n_metric.score_type" 
+          ng-click="n_metric.score_type = 'boolean'"
+          >
+          Yes/no
+        </div>
+      </div>
+    </form>
+    <div class="btn btn-negative g-third" ng-click="cancel()">
+      Cancel
+    </div>
+    <div class="btn btn-positive" ng-click="save()">
+      Save
+    </div>
+  </section>
+</div>
+<ul dnd-list="metrics" class="m-metrics l-ul-unstyled">
+  <li metric 
+    ng-repeat="metric in metrics"
+    ng-animate=" 'fade' "
+    class="m-row-i"
+  >
+  </li>
+</ul>

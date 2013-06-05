@@ -16,6 +16,8 @@ app = angular.module("Taglich", [
   #'dates_times',
   'resources.flash_cards',
   'directives.flash_card',
+  'directives.settings_card_set',
+  'directives.settings_flash_cards',
   'directives.flash_cards',
   'directives.metric_score',
   'directives.metric',

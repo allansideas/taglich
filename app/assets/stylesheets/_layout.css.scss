@@ -48,13 +48,19 @@ nav {
 
 .l-row {
   @include clearfix;
+  margin-bottom: emCalc(7px);
 }
 
 .l-widget, nav {
-  margin-bottom: emCalc(16px);
+  margin-bottom: emCalc(14px);
 }
 
 .g-third {
+  float: left;
+  width: 33.33333%;
+}
+
+.g-two-thirds {
   float: left;
   width: 33.33333%;
 }

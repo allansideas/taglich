@@ -18,11 +18,18 @@ angular.module('directives.metric_score', [])
       scope.ms = MetricScore.update(scope.ms, (ms)->
         setRowStatus(ms)
       )
+    scope.last_score = (()->
+      if scope.ms?
+        if scope.ms.last_8[scope.ms.last_8.length - 2]?
+          last_score = scope.ms.last_8[scope.ms.last_8.length - 2].score
+        else
+          last_score = 0
+      )()
 
     setRowStatus = (ms)->
       is_bool = ms.score_type == "boolean" 
       score = ms.score
-      last_score = scope.ms.last_8[ms.last_8.length - 2].score
+      last_score = scope.last_score
 
       scope.ms.status_class = "is-neutral-row"
       if ms.last_8.length > 0?

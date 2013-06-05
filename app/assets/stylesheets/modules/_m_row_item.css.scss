@@ -1,5 +1,6 @@
 .m-row-i {
   @include clearfix;
+  position: relative;
   background: $gray-darkish;
   padding: emCalc(8px);
   margin-bottom: emCalc(7px);
@@ -9,9 +10,17 @@
 .m-row-i-label {
   float: left;
   font-weight: bold;
-  padding: emCalc(9px);
+  padding: emCalc(9px) emCalc(5px);
   margin: 0;
   cursor: default;
+}
+
+.m-row-i-stat {
+  position: absolute;
+  top: emCalc(3px);
+  left: emCalc(13px);
+  font-size: emCalc(14px);
+  color: shade($body-font-color, 40%);
 }
 
 .m-row-i-input {

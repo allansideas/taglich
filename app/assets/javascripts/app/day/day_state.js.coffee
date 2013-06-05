@@ -18,7 +18,6 @@ angular.module('states.day', [])
                 c-id="cId" 
                 class="m-fl-cd"
                 ng-class="{\'is-visible\': $index === selected_index}" 
-                ng-animate="{enter:\'fade-enter\'}"
                 >
                 </article>  
             </div>
@@ -28,7 +27,10 @@ angular.module('states.day', [])
       'act-metrics@user.day':
         template: '
           <ul class="m-metrics l-ul-unstyled">
-            <li class="m-row-i {{ms.status_class}}" metric-score ng-repeat="ms in metric_scores" ng-animate="{enter:\'fade-enter\'}"></li>
+            <li metric-score class="m-row-i {{ms.status_class}}" 
+               ng-repeat="ms in metric_scores" 
+               ng-animate="\'fade\'"
+               ></li>
           </ul>
           '
         controller: 'ActMetricsCtrl'
